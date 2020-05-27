@@ -32,6 +32,9 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.NumberFormatter;
+
+import hust.soict.hedspi.visualization.action.ArrayVisualizer;
+
 import javax.swing.border.EtchedBorder;
 
 public class VisualizerFrame extends JFrame{
@@ -78,6 +81,7 @@ public class VisualizerFrame extends JFrame{
     private JLabel lbPoint2 = new JLabel();
     private JLabel lbPointM = new JLabel();
     private JButton btnNewButton_1;
+    private ArrayVisualizer arrayVisualizer;
 	/**
 	 * Launch the application.
 	 */
@@ -255,7 +259,7 @@ public class VisualizerFrame extends JFrame{
 		btnRandom.setBackground(SystemColor.activeCaption);
 		btnRandom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				
+				arrayVisualizer.createRandom(pnImitiate);
 			}
 		});
 		btnRandom.setBounds(15, 27, 120, 25);
@@ -285,7 +289,7 @@ public class VisualizerFrame extends JFrame{
 		btnCreateArray.setBackground(SystemColor.activeCaption);
 		btnCreateArray.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-//				
+				arrayVisualizer = new ArrayVisualizer(pnImitiate, spNum);
 			}
 		});
 		btnCreateArray.setBounds(160, 59, 120, 25);
@@ -294,7 +298,7 @@ public class VisualizerFrame extends JFrame{
 		btnDeleteArray.setBackground(SystemColor.activeCaption);
 		btnDeleteArray.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-//				
+				arrayVisualizer.deleteArray(pnImitiate);
 			}
 		});
 		btnDeleteArray.setBounds(160, 95, 120, 25);
@@ -303,7 +307,7 @@ public class VisualizerFrame extends JFrame{
 		btnSetZero.setBackground(SystemColor.activeCaption);
 		btnSetZero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//			
+				
 			}
 		});
 		btnSetZero.setBounds(15, 95, 120, 25);
