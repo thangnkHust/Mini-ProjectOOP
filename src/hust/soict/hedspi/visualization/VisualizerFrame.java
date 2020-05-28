@@ -15,6 +15,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -34,6 +35,11 @@ import javax.swing.event.ChangeListener;
 import javax.swing.text.NumberFormatter;
 
 import hust.soict.hedspi.visualization.action.ArrayVisualizer;
+import hust.soict.hedspi.visualization.action.SortVisualizer;
+import hust.soict.hedspi.visualization.algotrithms.BubbleSort;
+import hust.soict.hedspi.visualization.algotrithms.ISortAlgoritms;
+import hust.soict.hedspi.visualization.algotrithms.MergeSort;
+import hust.soict.hedspi.visualization.algotrithms.SelectionSort;
 
 import javax.swing.border.EtchedBorder;
 
@@ -63,25 +69,26 @@ public class VisualizerFrame extends JFrame{
 	private JSlider slSize;
 	private JScrollPane pnScroll; 
 	private DefaultListModel<String> model;
-	private ActionListener eSelectionSort, eBubbleSort, eBuketSort, eMergeSort;
-	private ChangeListener eSize;
-	private JList<String> lsCode;
 	private JPanel pnAlgorithm;
 	private JRadioButton rdSelectionSort, rdBubbleSort, rdBuketSort, rdMergeSort;
 	private ButtonGroup grSort;
 	private JPanel pnControl;
 	private JRadioButton rdIncrease, rdDecrease;
-	private ActionListener eIncrease, eDecrease;
 	private JButton btnSort, btnStop;
 	private JSlider slSpeed;
-    private ChangeListener eSpeed;
-	public int num;
-    private JButton btnNewButton;
-    private JLabel lbPoint1 = new JLabel();
-    private JLabel lbPoint2 = new JLabel();
-    private JLabel lbPointM = new JLabel();
-    private JButton btnNewButton_1;
     private ArrayVisualizer arrayVisualizer;
+    private ISortAlgoritms algorithm;
+    
+    private ActionListener eIncrease, eDecrease;
+    private ActionListener eSelectionSort, eBubbleSort, eBuketSort, eMergeSort;
+	private ChangeListener eSize;
+    private ChangeListener eSpeed;
+    
+    public static int time = 50;
+    public static JList<String> lsCode;
+    
+
+	private boolean isIncrease = true ;
 	/**
 	 * Launch the application.
 	 */
@@ -180,8 +187,8 @@ public class VisualizerFrame extends JFrame{
 		btnSort = new JButton("S\u1EAFp x\u1EBFp");
 		btnSort.setBackground(SystemColor.activeCaption);
 		btnSort.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {	
-//					
+			public void actionPerformed(ActionEvent e) {
+				new SortVisualizer(algorithm, isIncrease);
 			}
 		});
 		btnSort.setBounds(52, 140, 120, 25);
@@ -259,7 +266,7 @@ public class VisualizerFrame extends JFrame{
 		btnRandom.setBackground(SystemColor.activeCaption);
 		btnRandom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				arrayVisualizer.createRandom(pnImitiate);
+				arrayVisualizer.createRandom();
 			}
 		});
 		btnRandom.setBounds(15, 27, 120, 25);
@@ -267,7 +274,7 @@ public class VisualizerFrame extends JFrame{
 		btnByHand = new JButton("B\u1EB1ng tay");
 		btnByHand.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//			
+				arrayVisualizer.createHand();
 			}
 		});
 		btnByHand.setBackground(SystemColor.activeCaption);
@@ -298,7 +305,7 @@ public class VisualizerFrame extends JFrame{
 		btnDeleteArray.setBackground(SystemColor.activeCaption);
 		btnDeleteArray.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				arrayVisualizer.deleteArray(pnImitiate);
+				arrayVisualizer.deleteArray();
 			}
 		});
 		btnDeleteArray.setBounds(160, 95, 120, 25);
@@ -307,7 +314,7 @@ public class VisualizerFrame extends JFrame{
 		btnSetZero.setBackground(SystemColor.activeCaption);
 		btnSetZero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				arrayVisualizer.setZero();
 			}
 		});
 		btnSetZero.setBounds(15, 95, 120, 25);
@@ -332,31 +339,6 @@ public class VisualizerFrame extends JFrame{
 		contentPane.add(pnImitiate);
 		pnImitiate.setLayout(null);
                 
-                lbPoint1.setSize(50, 25);
-                lbPoint1.setOpaque(true);
-                lbPoint1.setLocation(50, 50);
-                lbPoint1.setFont(new Font("Helvetica", Font.BOLD, 17));
-                lbPoint1.setBackground(SystemColor.menu);
-                lbPoint1.setHorizontalAlignment(SwingConstants.CENTER);
-                lbPoint1.setVerticalAlignment(SwingConstants.CENTER);
-                pnImitiate.add(lbPoint1);
-                pnImitiate.add(lbPoint2);
-                lbPoint2.setSize(50, 25);
-                lbPoint2.setOpaque(true);
-                lbPoint2.setLocation(50, 50);
-                lbPoint2.setFont(new Font("Helvetica", Font.BOLD, 17));
-                lbPoint2.setBackground(SystemColor.menu);
-                lbPoint2.setHorizontalAlignment(SwingConstants.CENTER);
-                lbPoint2.setVerticalAlignment(SwingConstants.CENTER);
-                pnImitiate.add(lbPointM);
-                lbPointM.setSize(50, 25);
-                lbPointM.setOpaque(true);
-                lbPointM.setLocation(50, 50);
-                lbPointM.setFont(new Font("Helvetica", Font.BOLD, 17));
-                lbPointM.setBackground(SystemColor.menu);
-                lbPointM.setHorizontalAlignment(SwingConstants.CENTER);
-                lbPointM.setVerticalAlignment(SwingConstants.CENTER);
-		
 		grSort = new ButtonGroup();
 		grSort.add(rdSelectionSort);
 		grSort.add(rdBubbleSort);
@@ -368,21 +350,23 @@ public class VisualizerFrame extends JFrame{
 		grDirect.add(rdIncrease);
 		rdIncrease.setSelected(true);
 		
-		JButton btnPrev = new JButton("PREV");
-		btnPrev.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnPrev.setBounds(10, 241, 89, 23);
-		pnControl.add(btnPrev);
-		
-		btnNewButton_1 = new JButton("NEXT");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton_1.setBounds(137, 241, 89, 23);
-		pnControl.add(btnNewButton_1);
+		// TODO: step by step
+//		JButton btnPrev = new JButton("PREV");
+//		btnPrev.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				
+//			}
+//		});
+//		btnPrev.setBounds(10, 241, 89, 23);
+//		pnControl.add(btnPrev);
+//		
+//		btnNewButton_1 = new JButton("NEXT");
+//		btnNewButton_1.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//			}
+//		});
+//		btnNewButton_1.setBounds(137, 241, 89, 23);
+//		pnControl.add(btnNewButton_1);
 
 		lsCode.setSelectedIndex(0);
 		lsCode.ensureIndexIsVisible(lsCode.getSelectedIndex());
@@ -393,27 +377,36 @@ public class VisualizerFrame extends JFrame{
 		
 		eSelectionSort = new ActionListener() {
 		      public void actionPerformed(ActionEvent actionEvent) {
-//
+		    	  model.removeAllElements();
+		    	  algorithm = new SelectionSort();
+		    	  algorithm.addCode(model);
+		    	  lsCode.setSelectedIndex(0);
 		      }
 		};
 		
 		eBubbleSort = new ActionListener() {
 		      public void actionPerformed(ActionEvent actionEvent) {
-//
+		    	  model.removeAllElements();
+		    	  algorithm = new BubbleSort();
+		    	  algorithm.addCode(model);
+		    	  lsCode.setSelectedIndex(0);
 		      }
 		};
 		
 		
 		eBuketSort = new ActionListener() {
 		      public void actionPerformed(ActionEvent actionEvent) {
-//
+		    	  // Wait fix
 		      }
 		};
 		
 
 		eMergeSort = new ActionListener() {
 				public void actionPerformed(ActionEvent actionEvent) {
-//
+					model.removeAllElements();
+					algorithm = new MergeSort();
+			    	algorithm.addCode(model);
+					lsCode.setSelectedIndex(0);
 				}
 		};
 		
@@ -422,52 +415,68 @@ public class VisualizerFrame extends JFrame{
 		rdBubbleSort.addActionListener(eBubbleSort);
 		rdMergeSort.addActionListener(eMergeSort);
 		rdBuketSort.addActionListener(eBuketSort);
-	
 		
+		// Set default
+		rdSelectionSort.setSelected(true);
 		model.removeAllElements();
+		algorithm = new SelectionSort();
+		algorithm.addCode(model);
 		lsCode.setSelectedIndex(0);
 		
-		btnNewButton = new JButton("Info");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-//
-			}
-		});
-		btnNewButton.setBackground(SystemColor.activeCaption);
-		btnNewButton.setBounds(1294, 5, 61, 31);
-		contentPane.add(btnNewButton);
+		// TODO: Show info coder
+//		btnNewButton = new JButton("Info");
+//		btnNewButton.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+////
+//			}
+//		});
+//		btnNewButton.setBackground(SystemColor.activeCaption);
+//		btnNewButton.setBounds(1294, 5, 61, 31);
+//		contentPane.add(btnNewButton);
 		
 		eSize = new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-//
+				lsCode.setFont(new Font("Monospaced",Font.BOLD,slSize.getValue()));
+				lsCode.repaint();
 		    }
 		};
 		
 		slSize.addChangeListener(eSize);
                 
-                eSpeed = new ChangeListener() {
-                    public void stateChanged(ChangeEvent e) {
-//                        time = 100 - slSpeed.getValue() * 10;
-                    }
-                };
-                
-                slSpeed.addChangeListener(eSpeed);
+        eSpeed = new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                time = 100 - slSpeed.getValue() * 10;
+            }
+        };
+        
+        slSpeed.addChangeListener(eSpeed);
 		
 		eIncrease = new ActionListener() {
 		      public void actionPerformed(ActionEvent actionEvent) {
-//
+		    	//set Increase or Decrease
+		    	  isIncrease = true;		    	  
+		    	  //update element sort
+		    	  if (rdSelectionSort.isSelected())
+		    		  model.set(5, "               if (a[j] < a[pos])");
+		    	  if (rdBubbleSort.isSelected())
+		    		  model.set(4,"               if(a[j] < a[j-1])");
 		      }
 		};
 		
 		eDecrease = new ActionListener() {
 		      public void actionPerformed(ActionEvent actionEvent) {
-//
+		    	  isIncrease = false;
+		    	 
+		    	  if (rdSelectionSort.isSelected())
+		    		  model.set(5, "               if (a[j] > a[pos])");
+		    	  if (rdBubbleSort.isSelected())
+		    		  model.set(4,"               if(a[j] > a[j-1])");
 		      }
 		};
 		
 		rdIncrease.addActionListener(eIncrease);
 		rdDecrease.addActionListener(eDecrease);
-		setState(0);
+//		setState(0);
 	}
 	
 	
