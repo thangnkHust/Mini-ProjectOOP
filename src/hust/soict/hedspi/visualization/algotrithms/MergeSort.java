@@ -188,7 +188,6 @@ public class MergeSort implements ISortAlgoritms{
         SortVisualizer.curT ++;
         int cur = SortVisualizer.curT;
         Thread[] threads = SortVisualizer.threads;
-        int time = VisualizerFrame.time;
         threads[cur] = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -200,26 +199,26 @@ public class MergeSort implements ISortAlgoritms{
                     lb1.setBackground(SortVisualizer.processingColor);
                     while (lb1.getY() < 100) {
                         lb1.setLocation(x1, lb1.getY() + 10);
-                        Thread.sleep(time);
+                        Thread.sleep(VisualizerFrame.time);
                     }
                     int y1 = lb1.getY();
                     if (x1 < x) {
                         while (lb1.getX() < x) {
                             lb1.setLocation(lb1.getX() + 10, y1);
-                            Thread.sleep(time);
+                            Thread.sleep(VisualizerFrame.time);
                         }
                         while (lb1.getY() < y) {
                             lb1.setLocation(x, lb1.getY() + 10);
-                            Thread.sleep(time);
+                            Thread.sleep(VisualizerFrame.time);
                         }
                     } else {
                         while (lb1.getX() > x) {
                             lb1.setLocation(lb1.getX() - 10, y1);
-                            Thread.sleep(time);
+                            Thread.sleep(VisualizerFrame.time);
                         }
                         while (lb1.getY() < y) {
                             lb1.setLocation(x, lb1.getY() + 10);
-                            Thread.sleep(time);
+                            Thread.sleep(VisualizerFrame.time);
                         }
                     }
                     lb1.setBackground(SystemColor.inactiveCaption);

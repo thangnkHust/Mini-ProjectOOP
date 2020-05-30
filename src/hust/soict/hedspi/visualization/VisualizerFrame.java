@@ -1,33 +1,34 @@
 package hust.soict.hedspi.visualization;
 
+import java.awt.Color;
+import java.awt.Dialog.ModalExclusionType;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.SystemColor;
-import java.awt.Dialog.ModalExclusionType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Color;
+
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
@@ -42,8 +43,6 @@ import hust.soict.hedspi.visualization.algotrithms.ISortAlgoritms;
 import hust.soict.hedspi.visualization.algotrithms.MergeSort;
 import hust.soict.hedspi.visualization.algotrithms.SelectionSort;
 
-import javax.swing.border.EtchedBorder;
-
 public class VisualizerFrame extends JFrame{
 
 	/**
@@ -56,38 +55,38 @@ public class VisualizerFrame extends JFrame{
 	 */
 	
 	private JPanel contentPane;
-	private JLabel lbTitle;
 	private JPanel pnImitiate;
 	private JPanel pnTool;
 	private JPanel pnArray;
 	private JPanel pnCreateArray;
+	private JPanel pnSetValueArray;
+	private JPanel pnCode;
+	private JPanel pnAlgorithm;
+	private JPanel pnControl;
+	private JScrollPane pnScroll;
+	
+	private JLabel lbTitle;
 	private JLabel lbNum, lbMaxNum;
 	private JSpinner spNum;
 	private JButton btnCreateArray, btnDeleteArray, btnSetZero;
-	private JPanel pnSetValueArray;
 	private JButton btnRandom, btnByHand;
-	private JPanel pnCode;
-	private JSlider slSize;
-	private JScrollPane pnScroll; 
-	private DefaultListModel<String> model;
-	private JPanel pnAlgorithm;
-	private JRadioButton rdSelectionSort, rdBubbleSort, rdBuketSort, rdMergeSort;
 	private ButtonGroup grSort;
-	private JPanel pnControl;
-	private JRadioButton rdIncrease, rdDecrease;
 	private JButton btnSort, btnStop;
+	private JRadioButton rdSelectionSort, rdBubbleSort, rdBuketSort, rdMergeSort;
+	private JRadioButton rdIncrease, rdDecrease;
+	private JSlider slSize;
 	private JSlider slSpeed;
-    private ArrayVisualizer arrayVisualizer;
-    private ISortAlgoritms algorithm;
-    
+	private DefaultListModel<String> model;
+
     private ActionListener eIncrease, eDecrease;
     private ActionListener eSelectionSort, eBubbleSort, eBuketSort, eMergeSort;
 	private ChangeListener eSize;
     private ChangeListener eSpeed;
     
+    private ArrayVisualizer arrayVisualizer;
+    private ISortAlgoritms algorithm;
     public static int time = 50;
     public static JList<String> lsCode;
-    
     private ElementBox[] elementBoxs;
     
 
@@ -113,7 +112,7 @@ public class VisualizerFrame extends JFrame{
 	 
 	public VisualizerFrame(){
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
-		setTitle("M\u00F4 ph\u1ECFng thu\u1EADt to\u00E1n");
+		setTitle("Mô phỏng thuật toán");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1376, 742);
 		contentPane = new JPanel();
@@ -184,7 +183,7 @@ public class VisualizerFrame extends JFrame{
 		pnControl.add(rdIncrease);
 		
 		rdDecrease = new JRadioButton("S\u1EAFp x\u1EBFm gi\u1EA3m d\u1EA7n");
-		rdDecrease.setBounds(52, 87, 144, 23);
+		rdDecrease.setBounds(52, 87, 160, 23);
 		pnControl.add(rdDecrease);
 		
 		btnSort = new JButton("S\u1EAFp x\u1EBFp");
@@ -197,10 +196,14 @@ public class VisualizerFrame extends JFrame{
 		btnSort.setBounds(52, 140, 120, 25);
 		pnControl.add(btnSort);
 		
-		btnStop = new JButton("||");
+		btnStop = new JButton("PAUSE");
 		btnStop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				
+				if(btnStop.getText().equals("PAUSE")) {
+					btnStop.setText("PLAY");
+				}else {
+					btnStop.setText("PAUSE");
+				}
 			}
 		});
 		btnStop.setBackground(SystemColor.activeCaption);

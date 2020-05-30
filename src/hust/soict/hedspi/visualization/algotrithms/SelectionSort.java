@@ -87,7 +87,6 @@ public class SelectionSort implements ISortAlgoritms{
 		SortVisualizer.curT ++;
 		// Get value from Outer Class
 		int cur = SortVisualizer.curT;
-		int time = VisualizerFrame.time;
 		Thread[] threads = SortVisualizer.threads;
 				
 		threads[cur] = new Thread(new Runnable() {
@@ -103,17 +102,17 @@ public class SelectionSort implements ISortAlgoritms{
 			        while (lb1.getY() > 100) {
 			        	lb1.setLocation(lb1.getX(), lb1.getY() - 10);
 			        	lb2.setLocation(lb2.getX(), lb2.getY() + 10);
-			        	Thread.sleep(time);
+			        	Thread.sleep(VisualizerFrame.time);
 			        }
 			        while (lb1.getX() < x2) {
 			        	lb1.setLocation(lb1.getX() + 10, lb1.getY());
 			        	lb2.setLocation(lb2.getX() - 10, lb2.getY());
-			        	Thread.sleep(time);
+			        	Thread.sleep(VisualizerFrame.time);
 			        }
 			        while (lb1.getY() < 140) {
 			        	lb1.setLocation(lb1.getX(), lb1.getY() + 10);
 			        	lb2.setLocation(lb2.getX(), lb2.getY() - 10);
-			        	Thread.sleep(time);
+			        	Thread.sleep(VisualizerFrame.time);
 			        }
 			        String txtLb1 = lb1.getText();
 			        lb1.setText(lb2.getText());

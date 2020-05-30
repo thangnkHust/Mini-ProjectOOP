@@ -7,12 +7,10 @@ import hust.soict.hedspi.visualization.algotrithms.ISortAlgoritms;
 
 public class SortVisualizer{
 	
-	private static final long serialVersionUID = 1L;
+//	private static final long serialVersionUID = 1L;
 	public static int curT = -1;
 	public static Thread[] threads = new Thread[1000000];
 	public static Color processingColor = new Color(255, 153, 153);
-	public static Color selectedGreen = new Color(153, 255, 153);
-    public static Color selectedYellow = new Color(255, 255, 153);
 
 	public SortVisualizer(ISortAlgoritms algoritm, ElementBox[] elementBoxs, boolean isIncrease) {
 		if(isIncrease == true) {
