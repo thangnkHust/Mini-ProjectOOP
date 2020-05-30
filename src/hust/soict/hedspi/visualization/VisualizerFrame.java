@@ -37,6 +37,7 @@ import javax.swing.text.NumberFormatter;
 
 import hust.soict.hedspi.visualization.action.ArrayVisualizer;
 import hust.soict.hedspi.visualization.action.ElementBox;
+import hust.soict.hedspi.visualization.action.PointRun;
 import hust.soict.hedspi.visualization.action.SortVisualizer;
 import hust.soict.hedspi.visualization.algotrithms.BubbleSort;
 import hust.soict.hedspi.visualization.algotrithms.ISortAlgoritms;
@@ -88,7 +89,7 @@ public class VisualizerFrame extends JFrame{
     public static int time = 50;
     public static JList<String> lsCode;
     private ElementBox[] elementBoxs;
-    
+    private PointRun pointRun;
 
 	private boolean isIncrease = true ;
 	/**
@@ -190,7 +191,7 @@ public class VisualizerFrame extends JFrame{
 		btnSort.setBackground(SystemColor.activeCaption);
 		btnSort.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new SortVisualizer(algorithm, elementBoxs, isIncrease);
+				new SortVisualizer(algorithm, elementBoxs, pointRun, isIncrease);
 			}
 		});
 		btnSort.setBounds(52, 140, 120, 25);
@@ -302,7 +303,8 @@ public class VisualizerFrame extends JFrame{
 		btnCreateArray.setBackground(SystemColor.activeCaption);
 		btnCreateArray.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				arrayVisualizer = new ArrayVisualizer(pnImitiate, spNum, elementBoxs);
+				pointRun = new PointRun();
+				arrayVisualizer = new ArrayVisualizer(pnImitiate, spNum, elementBoxs, pointRun);
 				// set elementBoxs --> use it when sorting, animation
 				elementBoxs = arrayVisualizer.getElementBoxs();
 			}

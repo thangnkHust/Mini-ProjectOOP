@@ -3,6 +3,7 @@ package hust.soict.hedspi.visualization.algotrithms;
 import javax.swing.DefaultListModel;
 
 import hust.soict.hedspi.visualization.action.ElementBox;
+import hust.soict.hedspi.visualization.action.PointRun;
 
 public class BubbleSort implements ISortAlgoritms{
 	public void addCode(DefaultListModel<String> model) {
@@ -16,12 +17,12 @@ public class BubbleSort implements ISortAlgoritms{
 	}
 	
 	@Override
-	public void sortIncrease(ElementBox[] elementBoxs) {
+	public void sortIncrease(ElementBox[] elementBoxs, PointRun pointRun) {
 		System.err.println("Bubble Sort Increase");
 	}
 	
 	@Override
-	public void sortDecrease(ElementBox[] elementBoxs) {
+	public void sortDecrease(ElementBox[] elementBoxs, PointRun pointRun) {
 		System.err.println("Bubble Sort Decrease");
 	}
 		

@@ -12,11 +12,11 @@ public class SortVisualizer{
 	public static Thread[] threads = new Thread[1000000];
 	public static Color processingColor = new Color(255, 153, 153);
 
-	public SortVisualizer(ISortAlgoritms algoritm, ElementBox[] elementBoxs, boolean isIncrease) {
+	public SortVisualizer(ISortAlgoritms algoritm, ElementBox[] elementBoxs, PointRun pointRun, boolean isIncrease) {
 		if(isIncrease == true) {
-			algoritm.sortIncrease(elementBoxs);
+			algoritm.sortIncrease(elementBoxs, pointRun);
 		}else {
-			algoritm.sortDecrease(elementBoxs);
+			algoritm.sortDecrease(elementBoxs, pointRun);
 		}
 	}
 

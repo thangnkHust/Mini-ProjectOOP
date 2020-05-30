@@ -26,6 +26,7 @@ public class ArrayVisualizer {
 	public int num;
 	private JPanel pnImitiate;
 	private ElementBox[] elementBoxs;
+	private PointRun pointRun;
 	
 	public void setPnImitiate(JPanel pnImitiate) {
 		this.pnImitiate = pnImitiate;
@@ -38,11 +39,16 @@ public class ArrayVisualizer {
 	public ElementBox[] getElementBoxs() {
 		return elementBoxs;
 	}
+	
+	public void setPointRun(PointRun pointRun) {
+		this.pointRun = pointRun;
+	}
 
 	// Connstructor --> create array visualization
-	public ArrayVisualizer(JPanel pnImitiate, JSpinner spNum, ElementBox[] elementBoxs) {
+	public ArrayVisualizer(JPanel pnImitiate, JSpinner spNum, ElementBox[] elementBoxs, PointRun pointRun) {
 		// Set pnImitiate of ArrayVisualizer
 		setPnImitiate(pnImitiate);
+		setPointRun(pointRun);
 		// Delete older array
 		deleteArray();
 		// Get number
@@ -61,6 +67,10 @@ public class ArrayVisualizer {
 		}
 		// Set elementBoxs --> use delete, setZero, createRandom...
 		setElementBoxs(elementBoxs);
+		pnImitiate.add(pointRun.getLbPoint1());
+		pnImitiate.add(pointRun.getLbPoint2());
+		pnImitiate.add(pointRun.getLbPointM());
+		
 		pnImitiate.setVisible(true);
 		pnImitiate.validate();
 		pnImitiate.repaint();
@@ -69,12 +79,14 @@ public class ArrayVisualizer {
 	
 	public void deleteArray() {
 		for (int i = 0; i < num; i++) {
-			elementBoxs[i].setText("0");
-			elementBoxs[i].setValue(0);
-			elementBoxs[i].getLabel().setVisible(false);
+//			elementBoxs[i].setText("0");
+//			elementBoxs[i].setValue(0);
+//			elementBoxs[i].getLabel().setVisible(false);
 			pnImitiate.remove(elementBoxs[i].getLabel());
 		}
-		
+		pnImitiate.remove(pointRun.getLbPoint1());
+		pnImitiate.remove(pointRun.getLbPoint2());
+		pnImitiate.remove(pointRun.getLbPointM());
 		for (int i = 0; i < SortVisualizer.curT; i++) {
 			try {
 					SortVisualizer.threads[i].interrupt();

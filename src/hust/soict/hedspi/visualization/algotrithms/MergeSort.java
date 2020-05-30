@@ -5,13 +5,14 @@ import java.awt.SystemColor;
 import javax.swing.JLabel;
 
 import hust.soict.hedspi.visualization.VisualizerFrame;
-import hust.soict.hedspi.visualization.action.ArrayVisualizer;
 import hust.soict.hedspi.visualization.action.ElementBox;
+import hust.soict.hedspi.visualization.action.PointRun;
 import hust.soict.hedspi.visualization.action.SortVisualizer;
 
 public class MergeSort implements ISortAlgoritms{
 	private int[] oriLocat = new int[15];
 	private ElementBox[] elementBoxs;
+	private PointRun pointRun;
 	
 	public void addCode(javax.swing.DefaultListModel<String> model) {
 		model.addElement("void MergeSort(int left, int right) {");
@@ -60,13 +61,14 @@ public class MergeSort implements ISortAlgoritms{
 	};
 	
 	@Override
-	public void sortIncrease(ElementBox[] elementBoxs) {
+	public void sortIncrease(ElementBox[] elementBoxs, PointRun pointRun) {
 		this.elementBoxs = elementBoxs;
+		this.pointRun = pointRun;
 		MergeSortIncrease();
 	}
 	
 	@Override
-	public void sortDecrease(ElementBox[] elementBoxs) {
+	public void sortDecrease(ElementBox[] elementBoxs, PointRun pointRun) {
 		System.err.println("Merge Sort Decrease");
 	}
 	
@@ -101,24 +103,24 @@ public class MergeSort implements ISortAlgoritms{
         SortVisualizer.highLight(18);
         for (j = 0; j < n2; j ++)
             R[j] = elementBoxs[mid + 1 + j].getValue();
-//        setlbPoint(lbPoint1, left, "i = ");
-//        setlbPoint(lbPoint2, mid + 1, "j = ");
+        setlbPoint(pointRun.getLbPoint1(), left, "i = ");
+        setlbPoint(pointRun.getLbPoint2(), mid + 1, "j = ");
         PutUp(left, right);
         i = 0; j = 0;
         k = left;
         while (i < n1 && j < n2) {
             SortVisualizer.highLight(22);
-//            setlbPoint(lbPointM, k, "k = ");
+            setlbPoint(pointRun.getLbPointM(), k, "k = ");
             SortVisualizer.highLight(23);
             if (L[i] <= R[j]) {
-//                setlbPoint(lbPoint1, left + i, "i = ");
+                setlbPoint(pointRun.getLbPoint1(), left + i, "i = ");
                 SortVisualizer.highLight(24);
                 elementBoxs[k].setValue(L[i]);
                 PutDown(elementBoxs[left + i].getLabel(), oriLocat[k], 150);
                 SortVisualizer.highLight(25);
                 i ++;
             } else {
-//                setlbPoint(lbPoint2, mid + 1 + j, "j = ");
+                setlbPoint(pointRun.getLbPoint2(), mid + 1 + j, "j = ");
                 SortVisualizer.highLight(27);
                 elementBoxs[k].setValue(R[j]);
                 PutDown(elementBoxs[mid + 1 + j].getLabel(), oriLocat[k], 150);
@@ -130,8 +132,8 @@ public class MergeSort implements ISortAlgoritms{
         }
         while (i < n1) {
             SortVisualizer.highLight(32);
-//            setlbPoint(lbPointM, k, "k = ");
-//            setlbPoint(lbPoint1, left + i, "i = ");
+            setlbPoint(pointRun.getLbPointM(), k, "k = ");
+            setlbPoint(pointRun.getLbPoint1(), left + i, "i = ");
             SortVisualizer.highLight(33);
             elementBoxs[k].setValue(L[i]);
             PutDown(elementBoxs[left + i].getLabel(), oriLocat[k], 150);
@@ -140,8 +142,8 @@ public class MergeSort implements ISortAlgoritms{
         }
         while (j < n2) {
             SortVisualizer.highLight(37);
-//            setlbPoint(lbPointM, k, "k = ");
-//            setlbPoint(lbPoint2, mid + 1 + j, "j = ");
+            setlbPoint(pointRun.getLbPointM(), k, "k = ");
+            setlbPoint(pointRun.getLbPoint2(), mid + 1 + j, "j = ");
             SortVisualizer.highLight(38);
             elementBoxs[k].setValue(R[j]);
             PutDown(elementBoxs[mid + 1 + j].getLabel(), oriLocat[k], 150);
@@ -248,6 +250,29 @@ public class MergeSort implements ISortAlgoritms{
                     Thread.sleep(VisualizerFrame.time);
                 } catch (Exception e) {
                 }
+            }
+        });
+        threads[cur].start();
+    }
+    
+    public void setlbPoint(JLabel lbPoint, int i, String s) {
+        SortVisualizer.curT ++;
+        int cur = SortVisualizer.curT;
+        Thread[] threads = SortVisualizer.threads;
+        threads[cur] = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (cur != 0)
+                        threads[cur - 1].join();
+                    if(lbPoint == pointRun.getLbPointM()) {
+                    	lbPoint.setLocation(oriLocat[i], 200);
+                        lbPoint.setText(s + i);
+                    }else {
+                        lbPoint.setLocation(elementBoxs[i].getLabel().getX(), 275);
+                        lbPoint.setText(s + i);
+                    }
+                } catch (Exception e){}
             }
         });
         threads[cur].start();
