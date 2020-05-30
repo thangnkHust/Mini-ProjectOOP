@@ -24,5 +24,5 @@ public class BubbleSort implements ISortAlgoritms{
 	public void sortDecrease(ElementBox[] elementBoxs) {
 		System.err.println("Bubble Sort Decrease");
 	}
-	
+		
 }
