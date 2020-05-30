@@ -26,54 +26,44 @@ import javax.swing.text.NumberFormatter;
 public class ArrayVisualizer {
 	// Do khoi tao doi tuong moi trong moi lan goi constructor
 	// ==> Attribute la static -> bao toan gia tri cua lan truoc
-	public static int num;
-	public static JLabel[] lbArrays;
-	public static int[] array;
+	public int num;
 	private JPanel pnImitiate;
+	private ElementBox[] elementBoxs;
 	
 	public void setPnImitiate(JPanel pnImitiate) {
 		this.pnImitiate = pnImitiate;
 	}
+	
+	public void setElementBoxs(ElementBox[] elementBoxs) {
+		this.elementBoxs = elementBoxs;
+	}
+	
+	public ElementBox[] getElementBoxs() {
+		return elementBoxs;
+	}
 
 	// Connstructor --> create array visualization
-	public ArrayVisualizer(JPanel pnImitiate, JSpinner spNum) {
+	public ArrayVisualizer(JPanel pnImitiate, JSpinner spNum, ElementBox[] elementBoxs) {
 		// Set pnImitiate of ArrayVisualizer
 		setPnImitiate(pnImitiate);
 		// Delete older array
 		deleteArray();
-		// Get number, create array and lbArrays
+		// Get number
 		num = (Integer)spNum.getValue();
-		lbArrays = new JLabel[num];
-		array = new int[num];
+		elementBoxs = new ElementBox[num];
 		
 		for (int i = 0; i < num; i++) {
-			//create label, set text "0"
-			lbArrays[i] = new JLabel("0");
-			array[i] = 0;
-			pnImitiate.add(lbArrays[i]);
-			lbArrays[i].setText(String.valueOf(array[i]));
-			
-			//set size label
-			lbArrays[i].setSize(50,50);
-			lbArrays[i].setOpaque(true);
-			lbArrays[i].setForeground(Color.blue);
-			
+			// Create element box
+			elementBoxs[i] = new ElementBox();
+			pnImitiate.add(elementBoxs[i].getLabel());
 			//set location label
 			if (i == 0)
-				lbArrays[i].setLocation(((int) ((18 - num) * 0.5) * 70) + 100, 150);
+				elementBoxs[i].getLabel().setLocation(((int) ((18 - num) * 0.5) * 70) + 100, 150);
 			else
-				lbArrays[i].setLocation(lbArrays[i-1].getX() + 70, 150);
-			
-			//set fonts
-			lbArrays[i].setFont(new Font("Tahoma", Font.PLAIN, 30));
-			
-			//set background color
-			lbArrays[i].setBackground(SystemColor.inactiveCaption);
-			//set text alignment center
-			lbArrays[i].setHorizontalAlignment(SwingConstants.CENTER); 
-			lbArrays[i].setVerticalAlignment(SwingConstants.CENTER);
+				elementBoxs[i].getLabel().setLocation(elementBoxs[i-1].getLabel().getX() + 70, 150);
 		}
-                
+		// Set elementBoxs --> use delete, setZero, createRandom...
+		setElementBoxs(elementBoxs);
 		pnImitiate.setVisible(true);
 		pnImitiate.validate();
 		pnImitiate.repaint();
@@ -82,21 +72,21 @@ public class ArrayVisualizer {
 	
 	public void deleteArray() {
 		for (int i = 0; i < num; i++) {
-			lbArrays[i].setText("0");
-			array[i] = 0;
-			lbArrays[i].setVisible(false);
-			pnImitiate.remove(lbArrays[i]);
+			elementBoxs[i].setText("0");
+			elementBoxs[i].setValue(0);
+			elementBoxs[i].getLabel().setVisible(false);
+			pnImitiate.remove(elementBoxs[i].getLabel());
 		}
 		
-//		for (int i = 0; i < curT; i++) {
-//			try {
-//					threads[i].interrupt();
-//			} 
-//			catch (Exception e) {
-//				
-//			}
-//		}
-//		curT = -1;
+		for (int i = 0; i < SortVisualizer.curT; i++) {
+			try {
+					SortVisualizer.threads[i].interrupt();
+			} 
+			catch (Exception e) {
+				
+			}
+		}
+		SortVisualizer.curT = -1;
 		
 		pnImitiate.revalidate();
 		pnImitiate.repaint();
@@ -107,9 +97,9 @@ public class ArrayVisualizer {
 		Random rand = new Random();
 		for (int i = 0; i < num; i++) {
 			int ranNum = rand.nextInt(101) + 0;
-			lbArrays[i].setText(String.valueOf(ranNum));
-			lbArrays[i].setForeground(Color.BLUE);
-			array[i] = ranNum;
+			elementBoxs[i].getLabel().setText(String.valueOf(ranNum));
+//			lbArrays[i].setForeground(Color.BLUE);
+			elementBoxs[i].setValue(ranNum);
 		}
 		pnImitiate.setVisible(true);
 		pnImitiate.validate();
@@ -119,8 +109,8 @@ public class ArrayVisualizer {
 
 	public void setZero() {
 		for (int i = 0; i < num; i++) {
-			lbArrays[i].setText("0");
-			array[i] = 0;
+			elementBoxs[i].setText("0");
+			elementBoxs[i].setValue(0);
 		}
 		
 		this.pnImitiate.revalidate();
@@ -129,8 +119,7 @@ public class ArrayVisualizer {
 	}
 	
 	public void createHand() {
-//		ArrayInput arrayInput = new ArrayInput(pnImitiate, num, array, lbArrays);
-//		arrayInput.setVisible(true);
+		// GUI enter elements of array
 		JButton btnOK;
 		JSpinner[] txtArrays = new JSpinner[num];
 		JLabel[] lbArrays = new JLabel[num];
@@ -170,9 +159,8 @@ public class ArrayVisualizer {
 		btnOK.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				for (int i = 0; i < num; i++) {
-					array[i] = (int) txtArrays[i].getValue();
-					ArrayVisualizer.lbArrays[i].setText(String.valueOf(array[i]));
-					ArrayVisualizer.lbArrays[i].setForeground(Color.BLUE);
+					elementBoxs[i].setValue((int) txtArrays[i].getValue());
+					elementBoxs[i].setText(String.valueOf(elementBoxs[i].getValue()));
 				}
 				pnImitiate.setVisible(true);
 				pnImitiate.validate();

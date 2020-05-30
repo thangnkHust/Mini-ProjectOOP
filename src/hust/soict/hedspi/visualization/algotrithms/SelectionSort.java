@@ -6,7 +6,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 
 import hust.soict.hedspi.visualization.VisualizerFrame;
-import hust.soict.hedspi.visualization.action.ArrayVisualizer;
+import hust.soict.hedspi.visualization.action.ElementBox;
 import hust.soict.hedspi.visualization.action.SortVisualizer;
 
 public class SelectionSort implements ISortAlgoritms{
@@ -25,12 +25,10 @@ public class SelectionSort implements ISortAlgoritms{
 	}
 	
 	@Override
-	public void sortIncrease() {
+	public void sortIncrease(ElementBox[] elementBoxs) {
 		SortVisualizer.highLight(1);
 		int min,i,j; 
-		int num = ArrayVisualizer.num;
-		int[] array = ArrayVisualizer.array;
-		JLabel[] lbArrays = ArrayVisualizer.lbArrays;
+		int num = elementBoxs.length;
 		for (i = 0; i < num - 1; i++) {
 			SortVisualizer.highLight(2);
 			min = i;
@@ -38,28 +36,26 @@ public class SelectionSort implements ISortAlgoritms{
 			for(j = i + 1; j < num; j++) {
 				SortVisualizer.highLight(4);
 				SortVisualizer.highLight(5);
-				if (array[j] < array[min]) {
+				if (elementBoxs[j].getValue() < elementBoxs[min].getValue()) {
 					SortVisualizer.highLight(6);
 					min = j;
 				}
 			}				
 			if (min > i) {
-				int temp = array[min];		
-				array[min] = array[i];			
-				array[i] = temp;
+				int temp = elementBoxs[min].getValue();
+				elementBoxs[min].setValue(elementBoxs[i].getValue());
+				elementBoxs[i].setValue(temp);
 				SortVisualizer.highLight(7);
-				Swap(lbArrays[i], lbArrays[min]);
+				Swap(elementBoxs[i].getLabel(), elementBoxs[min].getLabel());
 			}
 		}
 	}
 	
 	@Override
-	public void sortDecrease() {
+	public void sortDecrease(ElementBox[] elementBoxs) {
 		SortVisualizer.highLight(1);
 		int min,i,j; 
-		int num = ArrayVisualizer.num;
-		int[] array = ArrayVisualizer.array;
-		JLabel[] lbArrays = ArrayVisualizer.lbArrays;
+		int num = elementBoxs.length;
 		for (i = 0; i < num - 1; i++) {
 			SortVisualizer.highLight(2);
 			min = i;
@@ -67,17 +63,20 @@ public class SelectionSort implements ISortAlgoritms{
 			for(j = i + 1; j < num; j++) {
 				SortVisualizer.highLight(4);
 				SortVisualizer.highLight(5);
-				if (array[j] > array[min]) {
+				if (elementBoxs[j].getValue() > elementBoxs[min].getValue()) {
 					SortVisualizer.highLight(6);
 					min = j;
 				}
 			}				
 			if (min > i) {
-				int temp = array[min];		
-				array[min] = array[i];			
-				array[i] = temp;
+				int temp = elementBoxs[min].getValue();
+				elementBoxs[min].setValue(elementBoxs[i].getValue());
+				elementBoxs[i].setValue(temp);
+//				int temp = array[min];
+//				array[min] = array[i];			
+//				array[i] = temp;
 				SortVisualizer.highLight(7);
-				Swap(lbArrays[i], lbArrays[min]);
+				Swap(elementBoxs[i].getLabel(), elementBoxs[min].getLabel());
 			}
 		}
 	}
@@ -90,7 +89,7 @@ public class SelectionSort implements ISortAlgoritms{
 		int cur = SortVisualizer.curT;
 		int time = VisualizerFrame.time;
 		Thread[] threads = SortVisualizer.threads;
-		
+				
 		threads[cur] = new Thread(new Runnable() {
 		    @Override
 		    public void run() {
