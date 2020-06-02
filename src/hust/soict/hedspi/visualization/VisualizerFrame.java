@@ -207,14 +207,16 @@ public class VisualizerFrame extends JFrame{
 					for(int i = 0; i <= SortVisualizer.curT; i++) {
 						if(SortVisualizer.threads[i].isAlive()) {
 //								JOptionPane.showMessageDialog(null, SortVisualizer.threads[i].getName());
+							try {
 								SortVisualizer.threads[i].suspend();
 							} catch (Exception e2) {
 								JOptionPane.showMessageDialog(null, e2.getStackTrace());
-							}
+							} 
 							
 						}
 					}
-				}else {
+				}
+				else {
 					btnStop.setText("PAUSE");
 					for(int i = 0; i <= SortVisualizer.curT; i++) {
 						if(SortVisualizer.threads[i].isAlive()) {
