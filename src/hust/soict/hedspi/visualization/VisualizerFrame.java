@@ -17,7 +17,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -205,17 +204,16 @@ public class VisualizerFrame extends JFrame{
 				if(btnStop.getText().equals("PAUSE")) {
 					btnStop.setText("PLAY");
 					for(int i = 0; i <= SortVisualizer.curT; i++) {
-//						if(SortVisualizer.threads[i].isAlive()) {
+						if(SortVisualizer.threads[i].isAlive()) {
 							try {
-//								JOptionPane.showMessageDialog(null, SortVisualizer.threads[i].getName());
 								SortVisualizer.threads[i].suspend();
 							} catch (Exception e2) {
 								e2.printStackTrace();
 							}
-							
-//						}
+						}
 					}
-				}else {
+				}
+				else {
 					btnStop.setText("PAUSE");
 					for(int i = 0; i <= SortVisualizer.curT; i++) {
 //						if(SortVisualizer.threads[i].isAlive()) {
