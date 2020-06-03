@@ -205,25 +205,26 @@ public class VisualizerFrame extends JFrame{
 				if(btnStop.getText().equals("PAUSE")) {
 					btnStop.setText("PLAY");
 					for(int i = 0; i <= SortVisualizer.curT; i++) {
-						if(SortVisualizer.threads[i].isAlive()) {
+//						if(SortVisualizer.threads[i].isAlive()) {
+							try {
 //								JOptionPane.showMessageDialog(null, SortVisualizer.threads[i].getName());
 								SortVisualizer.threads[i].suspend();
 							} catch (Exception e2) {
-								JOptionPane.showMessageDialog(null, e2.getStackTrace());
+								e2.printStackTrace();
 							}
 							
-						}
+//						}
 					}
 				}else {
 					btnStop.setText("PAUSE");
 					for(int i = 0; i <= SortVisualizer.curT; i++) {
-						if(SortVisualizer.threads[i].isAlive()) {
+//						if(SortVisualizer.threads[i].isAlive()) {
 							try {
 								SortVisualizer.threads[i].resume();
 							} catch (Exception e2) {
-								// TODO: handle exception
+								e2.printStackTrace();
 							}
-						}
+//						}
 					}
 				}
 			}
@@ -336,7 +337,7 @@ public class VisualizerFrame extends JFrame{
 		btnDeleteArray.setBackground(SystemColor.activeCaption);
 		btnDeleteArray.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				arrayVisualizer.deleteArray();
+				arrayVisualizer.deleteArray(elementBoxs);
 			}
 		});
 		btnDeleteArray.setBounds(160, 95, 120, 25);

@@ -20,6 +20,10 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.NumberFormatter;
 
+import com.sun.javafx.geom.Ellipse2D;
+
+import hust.soict.hedspi.visualization.VisualizerFrame;
+
 public class ArrayVisualizer {
 	// Do khoi tao doi tuong moi trong moi lan goi constructor
 	// ==> Attribute la static -> bao toan gia tri cua lan truoc
@@ -50,7 +54,8 @@ public class ArrayVisualizer {
 		setPnImitiate(pnImitiate);
 		setPointRun(pointRun);
 		// Delete older array
-		deleteArray();
+		if(elementBoxs != null)
+			deleteArray(elementBoxs);
 		// Get number
 		num = (Integer)spNum.getValue();
 		elementBoxs = new ElementBox[num];
@@ -77,8 +82,8 @@ public class ArrayVisualizer {
 //		setState(1);
 	}
 	
-	public void deleteArray() {
-		for (int i = 0; i < num; i++) {
+	public void deleteArray(ElementBox[] elementBoxs) {
+		for (int i = 0; i < elementBoxs.length; i++) {
 //			elementBoxs[i].setText("0");
 //			elementBoxs[i].setValue(0);
 //			elementBoxs[i].getLabel().setVisible(false);
@@ -92,7 +97,7 @@ public class ArrayVisualizer {
 					SortVisualizer.threads[i].interrupt();
 			} 
 			catch (Exception e) {
-				
+				e.printStackTrace();
 			}
 		}
 		SortVisualizer.curT = -1;
@@ -107,7 +112,6 @@ public class ArrayVisualizer {
 		for (int i = 0; i < num; i++) {
 			int ranNum = rand.nextInt(101) + 0;
 			elementBoxs[i].getLabel().setText(String.valueOf(ranNum));
-//			lbArrays[i].setForeground(Color.BLUE);
 			elementBoxs[i].setValue(ranNum);
 		}
 		pnImitiate.setVisible(true);
@@ -122,6 +126,14 @@ public class ArrayVisualizer {
 			elementBoxs[i].setValue(0);
 		}
 		
+		for (int i = 0; i < SortVisualizer.curT; i++) {
+			try {
+					SortVisualizer.threads[i].interrupt();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		this.pnImitiate.revalidate();
 		this.pnImitiate.repaint();
 //		setState(1);
