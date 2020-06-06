@@ -31,8 +31,23 @@ public class ElementBox {
 		label.setForeground(Color.blue);
 		label.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		
-		//set background color
+		//set background color 
 		label.setBackground(SystemColor.inactiveCaption);
+		//set text alignment center
+		label.setHorizontalAlignment(SwingConstants.CENTER); 
+		label.setVerticalAlignment(SwingConstants.CENTER);
+	}
+	
+	public ElementBox(Color c) {
+		label = new JLabel("-");
+		value = 0;
+		label.setSize(50,50);
+		label.setOpaque(true);
+		label.setForeground(Color.blue);
+		label.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		
+		//set background color 
+		label.setBackground(c);
 		//set text alignment center
 		label.setHorizontalAlignment(SwingConstants.CENTER); 
 		label.setVerticalAlignment(SwingConstants.CENTER);

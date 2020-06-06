@@ -4,6 +4,7 @@ import java.awt.SystemColor;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import hust.soict.hedspi.visualization.VisualizerFrame;
 import hust.soict.hedspi.visualization.action.ElementBox;
@@ -27,7 +28,7 @@ public class SelectionSort implements ISortAlgoritms{
 	}
 	
 	@Override
-	public void sortIncrease(ElementBox[] elementBoxs, PointRun pointRun) {
+	public void sortIncrease(JPanel pnImitiate, ElementBox[] elementBoxs, PointRun pointRun) {
 		// get value for attributed
 		this.elementBoxs = elementBoxs;
 		this.pointRun = pointRun;
@@ -61,7 +62,7 @@ public class SelectionSort implements ISortAlgoritms{
 	}
 	
 	@Override
-	public void sortDecrease(ElementBox[] elementBoxs, PointRun pointRun) {
+	public void sortDecrease(JPanel pnImitiate, ElementBox[] elementBoxs, PointRun pointRun) {
 		// get value for attributed
 		this.elementBoxs = elementBoxs;
 		this.pointRun = pointRun;
@@ -162,6 +163,7 @@ public class SelectionSort implements ISortAlgoritms{
                         lbPoint.setLocation(elementBoxs[i].getLabel().getX(), 275);
                         lbPoint.setText(s + i);
                     }
+                    Thread.sleep(VisualizerFrame.time*4);
                 } catch (Exception e){}
             }
         });

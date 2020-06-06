@@ -40,6 +40,7 @@ import hust.soict.hedspi.visualization.action.ElementBox;
 import hust.soict.hedspi.visualization.action.PointRun;
 import hust.soict.hedspi.visualization.action.SortVisualizer;
 import hust.soict.hedspi.visualization.algotrithms.BubbleSort;
+import hust.soict.hedspi.visualization.algotrithms.BucketSort;
 import hust.soict.hedspi.visualization.algotrithms.ISortAlgoritms;
 import hust.soict.hedspi.visualization.algotrithms.MergeSort;
 import hust.soict.hedspi.visualization.algotrithms.SelectionSort;
@@ -191,7 +192,7 @@ public class VisualizerFrame extends JFrame{
 		btnSort.setBackground(SystemColor.activeCaption);
 		btnSort.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new SortVisualizer(algorithm, elementBoxs, pointRun, isIncrease);
+				new SortVisualizer(pnImitiate, algorithm, elementBoxs, pointRun, isIncrease);
 			}
 		});
 		btnSort.setBounds(52, 140, 120, 25);
@@ -335,7 +336,7 @@ public class VisualizerFrame extends JFrame{
 		btnDeleteArray.setBackground(SystemColor.activeCaption);
 		btnDeleteArray.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				arrayVisualizer.deleteArray(elementBoxs);
+				arrayVisualizer.deleteArray();
 			}
 		});
 		btnDeleteArray.setBounds(160, 95, 120, 25);
@@ -364,7 +365,7 @@ public class VisualizerFrame extends JFrame{
 		
 		pnImitiate = new JPanel();
 		pnImitiate.setBackground(SystemColor.menu);
-		pnImitiate.setBorder(new TitledBorder(null, "Khung ch\u1EA1y m\u00F4 ph\u1ECFng", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		pnImitiate.setBorder(new TitledBorder(null, "Khung chạy mô phỏng", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		pnImitiate.setBounds(5, 44, 1355, 360);
 		contentPane.add(pnImitiate);
 		pnImitiate.setLayout(null);
@@ -426,7 +427,10 @@ public class VisualizerFrame extends JFrame{
 		
 		eBuketSort = new ActionListener() {
 		      public void actionPerformed(ActionEvent actionEvent) {
-		    	  // Wait fix
+		    	  model.removeAllElements();
+		    	  algorithm = new BucketSort();
+		    	  algorithm.addCode(model);
+		    	  lsCode.setSelectedIndex(0);
 		      }
 		};
 		

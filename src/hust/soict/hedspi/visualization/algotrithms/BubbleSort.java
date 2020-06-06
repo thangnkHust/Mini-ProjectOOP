@@ -2,6 +2,8 @@ package hust.soict.hedspi.visualization.algotrithms;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import java.awt.SystemColor;
 
 import hust.soict.hedspi.visualization.action.ElementBox;
@@ -23,7 +25,7 @@ public class BubbleSort implements ISortAlgoritms{
 	}
 	
 	@Override
-	public void sortIncrease(ElementBox[] elementBoxs, PointRun pointRun) {
+	public void sortIncrease(JPanel pnImitiate, ElementBox[] elementBoxs, PointRun pointRun) {
 //		System.err.println("Bubble Sort Increase");
 		this.elementBoxs = elementBoxs;
 		this.pointRun = pointRun;
@@ -49,7 +51,7 @@ public class BubbleSort implements ISortAlgoritms{
 	}
 	
 	@Override
-	public void sortDecrease(ElementBox[] elementBoxs, PointRun pointRun) {
+	public void sortDecrease(JPanel pnImitiate, ElementBox[] elementBoxs, PointRun pointRun) {
 //		System.err.println("Bubble Sort Decrease");
 		this.elementBoxs = elementBoxs;
 		this.pointRun = pointRun;
@@ -136,12 +138,35 @@ public class BubbleSort implements ISortAlgoritms{
                 try {
                     if (cur != 0)
                         threads[cur - 1].join();
-                        lbPoint.setLocation(elementBoxs[i].getLabel().getX(), 275);
-                        lbPoint.setText(s + i);
+                    lbPoint.setLocation(elementBoxs[i].getLabel().getX(), 200);
+                    lbPoint.setText(s + i);
                 } catch (Exception e){}
             }
         });
         threads[cur].start();
     }
+	
+//	public void setlbPoint(JLabel lbPoint, int i, String s) {
+//        SortVisualizer.curT ++;
+//        int cur = SortVisualizer.curT;
+//        Thread[] threads = SortVisualizer.threads;
+//        threads[cur] = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    if (cur != 0)
+//                        threads[cur - 1].join();
+//                    if(lbPoint == pointRun.getLbPointM()) {
+//                    	lbPoint.setLocation(elementBoxs[i].getLabel().getX(), 200);
+//                        lbPoint.setText(s);
+//                    }else {
+//                        lbPoint.setLocation(elementBoxs[i].getLabel().getX(), 275);
+//                        lbPoint.setText(s + i);
+//                    }
+//                } catch (Exception e){}
+//            }
+//        });
+//        threads[cur].start();
+//    }
 		
 }

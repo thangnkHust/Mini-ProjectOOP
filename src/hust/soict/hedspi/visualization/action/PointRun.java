@@ -29,7 +29,7 @@ public class PointRun {
 		// set lbPoint1
 		lbPoint1.setSize(50, 25);
         lbPoint1.setOpaque(true);
-        lbPoint1.setLocation(50, 50);
+        lbPoint1.setLocation(25, 25);
         lbPoint1.setFont(new Font("Helvetica", Font.BOLD, 17));
         lbPoint1.setBackground(SystemColor.menu);
         lbPoint1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -37,7 +37,7 @@ public class PointRun {
         
         lbPoint2.setSize(50, 25);
         lbPoint2.setOpaque(true);
-        lbPoint2.setLocation(50, 50);
+        lbPoint2.setLocation(25, 25);
         lbPoint2.setFont(new Font("Helvetica", Font.BOLD, 17));
         lbPoint2.setBackground(SystemColor.menu);
         lbPoint2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -45,7 +45,7 @@ public class PointRun {
         
         lbPointM.setSize(50, 25);
         lbPointM.setOpaque(true);
-        lbPointM.setLocation(50, 50);
+        lbPointM.setLocation(25, 25);
         lbPointM.setFont(new Font("Helvetica", Font.BOLD, 17));
         lbPointM.setBackground(SystemColor.menu);
         lbPointM.setHorizontalAlignment(SwingConstants.CENTER);

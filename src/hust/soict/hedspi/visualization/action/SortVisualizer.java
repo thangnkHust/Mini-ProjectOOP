@@ -2,6 +2,8 @@ package hust.soict.hedspi.visualization.action;
 
 import java.awt.Color;
 
+import javax.swing.JPanel;
+
 import hust.soict.hedspi.visualization.VisualizerFrame;
 import hust.soict.hedspi.visualization.algotrithms.ISortAlgoritms;
 
@@ -12,11 +14,11 @@ public class SortVisualizer{
 	public static Thread[] threads = new Thread[1000000];
 	public static Color processingColor = new Color(255, 153, 153);
 
-	public SortVisualizer(ISortAlgoritms algoritm, ElementBox[] elementBoxs, PointRun pointRun, boolean isIncrease) {
+	public SortVisualizer(JPanel pnImitiate, ISortAlgoritms algoritm, ElementBox[] elementBoxs, PointRun pointRun, boolean isIncrease) {
 		if(isIncrease == true) {
-			algoritm.sortIncrease(elementBoxs, pointRun);
+			algoritm.sortIncrease(pnImitiate, elementBoxs, pointRun);
 		}else {
-			algoritm.sortDecrease(elementBoxs, pointRun);
+			algoritm.sortDecrease(pnImitiate, elementBoxs, pointRun);
 		}
 	}
 
@@ -32,7 +34,7 @@ public class SortVisualizer{
 			    	}
 		    		VisualizerFrame.lsCode.setSelectedIndex(line);
 		    		VisualizerFrame.lsCode.ensureIndexIsVisible(line); // Tu cuon den dong dang highlight
-		    		Thread.sleep(VisualizerFrame.time);
+		    		Thread.sleep(VisualizerFrame.time - 500);
 		    	} catch (Exception e) {
 		    		
 		    	}

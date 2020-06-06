@@ -20,13 +20,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.NumberFormatter;
 
-import com.sun.javafx.geom.Ellipse2D;
-
-import hust.soict.hedspi.visualization.VisualizerFrame;
-
 public class ArrayVisualizer {
-	// Do khoi tao doi tuong moi trong moi lan goi constructor
-	// ==> Attribute la static -> bao toan gia tri cua lan truoc
 	public int num;
 	private JPanel pnImitiate;
 	private ElementBox[] elementBoxs;
@@ -54,8 +48,7 @@ public class ArrayVisualizer {
 		setPnImitiate(pnImitiate);
 		setPointRun(pointRun);
 		// Delete older array
-		if(elementBoxs != null)
-			deleteArray(elementBoxs);
+		deleteArray();
 		// Get number
 		num = (Integer)spNum.getValue();
 		elementBoxs = new ElementBox[num];
@@ -82,16 +75,10 @@ public class ArrayVisualizer {
 //		setState(1);
 	}
 	
-	public void deleteArray(ElementBox[] elementBoxs) {
-		for (int i = 0; i < elementBoxs.length; i++) {
-//			elementBoxs[i].setText("0");
-//			elementBoxs[i].setValue(0);
-//			elementBoxs[i].getLabel().setVisible(false);
-			pnImitiate.remove(elementBoxs[i].getLabel());
-		}
-		pnImitiate.remove(pointRun.getLbPoint1());
-		pnImitiate.remove(pointRun.getLbPoint2());
-		pnImitiate.remove(pointRun.getLbPointM());
+	public void deleteArray() {
+		// Delete all component of pnImitiate
+		pnImitiate.removeAll();
+		// Interrupt all threads
 		for (int i = 0; i < SortVisualizer.curT; i++) {
 			try {
 					SortVisualizer.threads[i].interrupt();
@@ -101,7 +88,7 @@ public class ArrayVisualizer {
 			}
 		}
 		SortVisualizer.curT = -1;
-		
+
 		pnImitiate.revalidate();
 		pnImitiate.repaint();
 //		setState(0);
