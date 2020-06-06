@@ -36,7 +36,7 @@ public class BubbleSort implements ISortAlgoritms{
 			for (j = num - 1; j > i; j--) {
 				SortVisualizer.highLight(3);
 				SortVisualizer.highLight(4);
-				setlbPoint(pointRun.getLbPoint1(), j, "j = ");
+				setlbPoint(pointRun.getLbPoint2(), j, "j = ");
 				if(elementBoxs[j].getValue() < elementBoxs[j-1].getValue()) {
 					int temp = elementBoxs[j].getValue();
 					elementBoxs[j].setValue(elementBoxs[j-1].getValue());
