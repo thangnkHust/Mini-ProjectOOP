@@ -14,7 +14,7 @@ public class SortVisualizer{
 	public static Thread[] threads = new Thread[1000000];
 	public static Color processingColor = new Color(255, 153, 153);
 
-	public SortVisualizer(JPanel pnImitiate, ISortAlgoritms algoritm, ElementBox[] elementBoxs, PointRun pointRun, boolean isIncrease) {
+	public SortVisualizer(JPanel pnImitiate, ISortAlgoritms algoritm, Element[] elementBoxs, PointRun pointRun, boolean isIncrease) {
 		if(isIncrease == true) {
 			algoritm.sortIncrease(pnImitiate, elementBoxs, pointRun);
 		}else {

@@ -6,13 +6,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import hust.soict.hedspi.visualization.VisualizerFrame;
+import hust.soict.hedspi.visualization.action.Element;
 import hust.soict.hedspi.visualization.action.ElementBox;
 import hust.soict.hedspi.visualization.action.PointRun;
 import hust.soict.hedspi.visualization.action.SortVisualizer;
 
 public class MergeSort implements ISortAlgoritms{
 	private int[] oriLocat = new int[15];
-	private ElementBox[] elementBoxs;
+	private Element[] elementBoxs;
 	private PointRun pointRun;
 	
 	public void addCode(javax.swing.DefaultListModel<String> model) {
@@ -62,7 +63,7 @@ public class MergeSort implements ISortAlgoritms{
 	};
 	
 	@Override
-	public void sortIncrease(JPanel pnImitiate, ElementBox[] elementBoxs, PointRun pointRun) {
+	public void sortIncrease(JPanel pnImitiate, Element[] elementBoxs, PointRun pointRun) {
 		this.elementBoxs = elementBoxs;
 		this.pointRun = pointRun;
 		MergeSortIncrease();
@@ -153,8 +154,7 @@ public class MergeSort implements ISortAlgoritms{
     }
 	
 	@Override
-	public void sortDecrease(JPanel pnImitiate, ElementBox[] elementBoxs, PointRun pointRun) {
-//		System.err.println("Merge Sort Decrease");
+	public void sortDecrease(JPanel pnImitiate, Element[] elementBoxs, PointRun pointRun) {
 		this.elementBoxs = elementBoxs;
 		this.pointRun = pointRun;
 		MergeSortDecrease();
@@ -256,9 +256,9 @@ public class MergeSort implements ISortAlgoritms{
                     int mid = (left + right) / 2;
                     for (int i = left; i <= right; i ++) {
                         if (i < mid + 1)
-                            elementBoxs[i].setSelectedGreen();
+                            ((ElementBox) elementBoxs[i]).setSelectedGreen();
                         else
-                            elementBoxs[i].setSelectedYellow();
+                            ((ElementBox) elementBoxs[i]).setSelectedYellow();
                     }
                     while (elementBoxs[right].getLabel().getY() > 50) {
                         for (int i = left; i <= right; i ++) {
@@ -287,7 +287,6 @@ public class MergeSort implements ISortAlgoritms{
                     }
                     int x1 = lb1.getX();
                     lb1.setBackground(SortVisualizer.processingColor);
-//                    JOptionPane.showMessageDialog(null, "down 10");
                     while (lb1.getY() < 100) {
                         lb1.setLocation(x1, lb1.getY() + 10);
                         Thread.sleep(VisualizerFrame.time);
@@ -299,8 +298,9 @@ public class MergeSort implements ISortAlgoritms{
                             Thread.sleep(VisualizerFrame.time);
                         }
                         while (lb1.getY() < y) {
-                            lb1.setLocation(x, lb1.getY() + 10);                        }
-                        	Thread.sleep(VisualizerFrame.time);
+                            lb1.setLocation(x, lb1.getY() + 10);
+                            Thread.sleep(VisualizerFrame.time);
+                        }
                     } else {
                         while (lb1.getX() > x) {
                             lb1.setLocation(lb1.getX() - 10, y1);
@@ -313,6 +313,7 @@ public class MergeSort implements ISortAlgoritms{
                     }
                     lb1.setBackground(SystemColor.inactiveCaption);
                 } catch (Exception e) {
+                	e.printStackTrace();
                 }
             }
         });
@@ -335,8 +336,8 @@ public class MergeSort implements ISortAlgoritms{
                             elementBoxs[i].getLabel().setText(T[i - left] + "");
                         }
                     }
-                    Thread.sleep(VisualizerFrame.time);
                 } catch (Exception e) {
+                	e.printStackTrace();
                 }
             }
         });
@@ -357,7 +358,7 @@ public class MergeSort implements ISortAlgoritms{
                     	lbPoint.setLocation(oriLocat[i], 200);
                         lbPoint.setText(s + i);
                     }else {
-                        lbPoint.setLocation(elementBoxs[i].getLabel().getX(), 275);
+                        lbPoint.setLocation(elementBoxs[i].getLabel().getX(), 250);
                         lbPoint.setText(s + i);
                     }
                 } catch (Exception e){}
@@ -365,4 +366,6 @@ public class MergeSort implements ISortAlgoritms{
         });
         threads[cur].start();
     }
+    
+    public void Swap(JLabel lb1, JLabel lb2) {/* Do nothing */}
 }

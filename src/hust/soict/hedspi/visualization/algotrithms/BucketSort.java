@@ -7,31 +7,33 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import hust.soict.hedspi.visualization.VisualizerFrame;
-import hust.soict.hedspi.visualization.action.ElementBox;
+import hust.soict.hedspi.visualization.action.Element;
+import hust.soict.hedspi.visualization.action.ElementIndex;
 import hust.soict.hedspi.visualization.action.PointRun;
 import hust.soict.hedspi.visualization.action.SortVisualizer;
 
 public class BucketSort implements ISortAlgoritms{
-	private ElementBox[] elementBoxs;
-	private ElementBox[] elementIndexs;
+	private Element[] elementBoxs;
+	private Element[] elementIndexs;
 	private int num;
 	private JPanel pnImitiate;
 	
 	public void addCode(DefaultListModel<String> model) {
-		model.addElement("void BubbleSort(int a[],int n) {");
-		model.addElement("     int i, j;");
-		model.addElement("     for (i = 0 ; i<n-1 ; i++)");
-		model.addElement("          for (j =n-1; j >i ; j --)");
-		model.addElement("               if(a[j] < a[j-1])");
-		model.addElement("                    Swap(a[j], a[j-1]");
-		model.addElement("}");
+		model.addElement("def Bucket(int array[], int n):");
+		model.addElement("     bucket = [][] ");
+		model.addElement("     for i in array:");
+		model.addElement("     		index_b = int(n*i/101)");
+		model.addElement("     		bucket[index_b].append(i)");
+		model.addElement("     for i in range(n)");
+		model.addElement("     		bucket[i] = sorted(bucket[i])");
 	}
 	
-	public void setElementIndexs(ElementBox[] elementIndexs) {
+	// Setter for attributes
+	public void setElementIndexs(Element[] elementIndexs) {
 		this.elementIndexs = elementIndexs;
 	}
 	
-	public void setElementBoxs(ElementBox[] elementBoxs) {
+	public void setElementBoxs(Element[] elementBoxs) {
 		this.elementBoxs = elementBoxs;
 	}
 	
@@ -44,31 +46,37 @@ public class BucketSort implements ISortAlgoritms{
 	}
 	
 	@Override
-	public void sortIncrease(JPanel pnImitiate, ElementBox[] elementBoxs, PointRun pointRun) {
+	public void sortIncrease(JPanel pnImitiate, Element[] elementBoxs, PointRun pointRun) {
 		setElementBoxs(elementBoxs);
 		setElementIndexs(elementIndexs);
 		setPnImitiate(pnImitiate);
 		setNum(elementBoxs.length);
 		setIndexs();
-		int temp = 0;
-		for(int i = 0; i < num; i++) {
-			temp = (elementBoxs[i].getValue()*num)/101;
-			elementIndexs[i].setValue(temp);
-			elementIndexs[i].getLabel().setText(temp + "");
-		}
         
+		// Storage value from outer class
         SortVisualizer.curT ++;
         Thread[] threads = SortVisualizer.threads;
         int cur = SortVisualizer.curT;
         
         threads[cur] = new Thread(new Runnable() {
-			
 			@Override
 			public void run() {
 				try {
 					if (cur != 0) {
                         threads[cur - 1].join();
                     }
+					// Set value of index
+					int temp = 0;
+					SortVisualizer.highLight(2);
+					for(int i = 0; i < num; i++) {
+						temp = (elementBoxs[i].getValue()*num)/101;
+						SortVisualizer.highLight(3);
+						elementIndexs[i].setValue(temp);
+						elementIndexs[i].getLabel().setText(temp + "");
+						Thread.sleep(VisualizerFrame.time*4);
+						SortVisualizer.highLight(4);
+					}
+					// Start sorting
 					int pos, i;
 			        int x;
 			        int y;
@@ -89,14 +97,18 @@ public class BucketSort implements ISortAlgoritms{
 			        	elementBoxs[pos+1].setValue(x);
 			        	elementIndexs[pos+1].setValue(y);
 			        }
+					// Sorting on each block
+					SortVisualizer.highLight(5);
 					for (i = 1; i < num; i++) {
 			        	x = elementBoxs[i].getValue();
 			        	y = elementIndexs[i].getValue();
 			            pos = i - 1;
 			            while ((pos >= 0) && (elementBoxs[pos].getValue() > x)) {
 			                if (pos > 0 && elementBoxs[pos-1].getValue() <= x) {
+			                	SortVisualizer.highLight(6);
 			                    Move(elementBoxs[pos+1].getLabel(), elementBoxs[pos].getLabel(), 0, elementIndexs[pos+1].getLabel(), elementIndexs[pos].getLabel());
 			                } else {
+			                	SortVisualizer.highLight(6);
 			                    Move(elementBoxs[pos+1].getLabel(), elementBoxs[pos].getLabel(), pos, elementIndexs[pos+1].getLabel(), elementIndexs[pos].getLabel());
 			                }
 			                elementBoxs[pos+1].setValue(elementBoxs[pos].getValue());
@@ -112,6 +124,11 @@ public class BucketSort implements ISortAlgoritms{
 			}
 		});
         threads[cur].start();
+	}
+	
+	@Override
+	public void sortDecrease(JPanel pnImitiate, Element[] elementBoxs, PointRun pointRun) {
+		
 	}
 	
 	public void Move(JLabel lb1, JLabel lb2, int pos, JLabel lbIndex1, JLabel lbIndex2) {
@@ -171,19 +188,14 @@ public class BucketSort implements ISortAlgoritms{
         threads[cur].start();
     }
 	
-	@Override
-	public void sortDecrease(JPanel pnImitiate, ElementBox[] elementBoxs, PointRun pointRun) {
-		
-	}
-	
 	private void setIndexs() {
 		if(elementIndexs != null) {
 			for(int i = 0; i < elementIndexs.length; i++)
 				pnImitiate.remove(elementIndexs[i].getLabel());
 		}
-		elementIndexs = new ElementBox[num];
+		elementIndexs = new ElementIndex[num];
 		for(int i = 0; i < num; i++) {
-			elementIndexs[i] = new ElementBox(SystemColor.menu);
+			elementIndexs[i] = new ElementIndex(SystemColor.menu);
 			pnImitiate.add(elementIndexs[i].getLabel());
 			if (i == 0)
 				elementIndexs[i].getLabel().setLocation(((int) ((18 - num) * 0.5) * 70) + 100, 200);
@@ -192,10 +204,6 @@ public class BucketSort implements ISortAlgoritms{
 		}
 	}
 	
-//	private void deleteIndexs(ElementBox[] elementIndexs) {
-//		System.err.println(elementIndexs.length);
-//		for(int i = 0; i < elementIndexs.length; i++) {
-//			pnImitiate.remove(elementIndexs[i].getLabel());
-//		}
-//	}
+	public void setlbPoint(JLabel lbPoint, int i, String s) {/* Do nothing */}
+	public void Swap(JLabel lb1, JLabel lb2) {/* Do nothing */}
 }

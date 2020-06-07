@@ -1,34 +1,32 @@
 package hust.soict.hedspi.visualization.algotrithms;
 
+import java.awt.SystemColor;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import java.awt.SystemColor;
-
-import hust.soict.hedspi.visualization.action.ElementBox;
+import hust.soict.hedspi.visualization.VisualizerFrame;
+import hust.soict.hedspi.visualization.action.Element;
 import hust.soict.hedspi.visualization.action.PointRun;
 import hust.soict.hedspi.visualization.action.SortVisualizer;
-import hust.soict.hedspi.visualization.VisualizerFrame;
 
 public class BubbleSort implements ISortAlgoritms{
-	private ElementBox[] elementBoxs;
-	private PointRun pointRun;
+	private Element[] elementBoxs;
 	public void addCode(DefaultListModel<String> model) {
 		model.addElement("void BubbleSort(int a[],int n) {");
 		model.addElement("     int i, j;");
 		model.addElement("     for (i = 0 ; i<n-1 ; i++)");
 		model.addElement("          for (j =n-1; j >i ; j --)");
 		model.addElement("               if(a[j] < a[j-1])");
-		model.addElement("                    Swap(a[j], a[j-1]");
+		model.addElement("                    Swap(a[j], a[j-1])");
 		model.addElement("}");
 	}
 	
 	@Override
-	public void sortIncrease(JPanel pnImitiate, ElementBox[] elementBoxs, PointRun pointRun) {
-//		System.err.println("Bubble Sort Increase");
+	public void sortIncrease(JPanel pnImitiate, Element[] elementBoxs, PointRun pointRun) {
 		this.elementBoxs = elementBoxs;
-		this.pointRun = pointRun;
+		
 		SortVisualizer.highLight(1);
 		int i, j;
 		int num = elementBoxs.length;
@@ -38,7 +36,7 @@ public class BubbleSort implements ISortAlgoritms{
 			for (j = num - 1; j > i; j--) {
 				SortVisualizer.highLight(3);
 				SortVisualizer.highLight(4);
-				setlbPoint(pointRun.getLbPoint1(), j, "j = ");
+				setlbPoint(pointRun.getLbPoint2(), j, "j = ");
 				if(elementBoxs[j].getValue() < elementBoxs[j-1].getValue()) {
 					int temp = elementBoxs[j].getValue();
 					elementBoxs[j].setValue(elementBoxs[j-1].getValue());
@@ -51,10 +49,9 @@ public class BubbleSort implements ISortAlgoritms{
 	}
 	
 	@Override
-	public void sortDecrease(JPanel pnImitiate, ElementBox[] elementBoxs, PointRun pointRun) {
-//		System.err.println("Bubble Sort Decrease");
+	public void sortDecrease(JPanel pnImitiate, Element[] elementBoxs, PointRun pointRun) {
 		this.elementBoxs = elementBoxs;
-		this.pointRun = pointRun;
+		
 		SortVisualizer.highLight(1);
 		int i,j;
 		int num = elementBoxs.length;
@@ -64,7 +61,7 @@ public class BubbleSort implements ISortAlgoritms{
 			for(j = num -1 ; j > i;j--) {
 				SortVisualizer.highLight(3);
 				SortVisualizer.highLight(4);
-				setlbPoint(pointRun.getLbPoint1(), j, "j = ");
+				setlbPoint(pointRun.getLbPoint2(), j, "j = ");
 				if(elementBoxs[j].getValue() < elementBoxs[j-1].getValue()) {
 					int temp = elementBoxs[j].getValue();
 					elementBoxs[j].setValue(elementBoxs[j-1].getValue());
@@ -72,7 +69,7 @@ public class BubbleSort implements ISortAlgoritms{
 					SortVisualizer.highLight(5);
 					Swap(elementBoxs[j-1].getLabel(), elementBoxs[j].getLabel());
 				}
-			}						
+			}
 		}		
 	}
 	
@@ -97,19 +94,16 @@ public class BubbleSort implements ISortAlgoritms{
 			        while (lb1.getY() > 100) {
 			        	lb1.setLocation(lb1.getX(), lb1.getY() - 10);
 			        	lb2.setLocation(lb2.getX(), lb2.getY() + 10);
-			        	pointRun.setLocationM(x2, pointRun.getLbPointM().getY() + 10);
 			        	Thread.sleep(VisualizerFrame.time);
 			        }
 			        while (lb1.getX() < x2) {
 			        	lb1.setLocation(lb1.getX() + 10, lb1.getY());
 			        	lb2.setLocation(lb2.getX() - 10, lb2.getY());
-			        	pointRun.setLocationM(lb2.getX(), 250);
 			        	Thread.sleep(VisualizerFrame.time);
 			        }
 			        while (lb1.getY() < 140) {
 			        	lb1.setLocation(lb1.getX(), lb1.getY() + 10);
 			        	lb2.setLocation(lb2.getX(), lb2.getY() - 10);
-			        	pointRun.setLocationM(x1, pointRun.getLbPointM().getY() - 10);
 			        	Thread.sleep(VisualizerFrame.time);
 			        }
 			        String txtLb1 = lb1.getText();
@@ -138,35 +132,16 @@ public class BubbleSort implements ISortAlgoritms{
                 try {
                     if (cur != 0)
                         threads[cur - 1].join();
-                    lbPoint.setLocation(elementBoxs[i].getLabel().getX(), 200);
+                    lbPoint.setLocation(elementBoxs[i].getLabel().getX(), 250);
                     lbPoint.setText(s + i);
-                } catch (Exception e){}
+                    Thread.sleep(VisualizerFrame.time*4);
+                } catch (Exception e){
+                	e.printStackTrace();
+                }
             }
         });
         threads[cur].start();
     }
 	
-//	public void setlbPoint(JLabel lbPoint, int i, String s) {
-//        SortVisualizer.curT ++;
-//        int cur = SortVisualizer.curT;
-//        Thread[] threads = SortVisualizer.threads;
-//        threads[cur] = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    if (cur != 0)
-//                        threads[cur - 1].join();
-//                    if(lbPoint == pointRun.getLbPointM()) {
-//                    	lbPoint.setLocation(elementBoxs[i].getLabel().getX(), 200);
-//                        lbPoint.setText(s);
-//                    }else {
-//                        lbPoint.setLocation(elementBoxs[i].getLabel().getX(), 275);
-//                        lbPoint.setText(s + i);
-//                    }
-//                } catch (Exception e){}
-//            }
-//        });
-//        threads[cur].start();
-//    }
 		
 }

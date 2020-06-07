@@ -23,30 +23,24 @@ import javax.swing.text.NumberFormatter;
 public class ArrayVisualizer {
 	public int num;
 	private JPanel pnImitiate;
-	private ElementBox[] elementBoxs;
-	private PointRun pointRun;
+	private Element[] elementBoxs;
 	
 	public void setPnImitiate(JPanel pnImitiate) {
 		this.pnImitiate = pnImitiate;
 	}
 	
-	public void setElementBoxs(ElementBox[] elementBoxs) {
+	public void setElementBoxs(Element[] elementBoxs) {
 		this.elementBoxs = elementBoxs;
 	}
 	
-	public ElementBox[] getElementBoxs() {
+	public Element[] getElementBoxs() {
 		return elementBoxs;
 	}
 	
-	public void setPointRun(PointRun pointRun) {
-		this.pointRun = pointRun;
-	}
-
 	// Connstructor --> create array visualization
-	public ArrayVisualizer(JPanel pnImitiate, JSpinner spNum, ElementBox[] elementBoxs, PointRun pointRun) {
+	public ArrayVisualizer(JPanel pnImitiate, JSpinner spNum, Element[] elementBoxs, PointRun pointRun) {
 		// Set pnImitiate of ArrayVisualizer
 		setPnImitiate(pnImitiate);
-		setPointRun(pointRun);
 		// Delete older array
 		deleteArray();
 		// Get number

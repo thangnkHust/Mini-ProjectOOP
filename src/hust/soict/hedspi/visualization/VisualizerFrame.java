@@ -36,7 +36,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.text.NumberFormatter;
 
 import hust.soict.hedspi.visualization.action.ArrayVisualizer;
-import hust.soict.hedspi.visualization.action.ElementBox;
+import hust.soict.hedspi.visualization.action.Element;
 import hust.soict.hedspi.visualization.action.PointRun;
 import hust.soict.hedspi.visualization.action.SortVisualizer;
 import hust.soict.hedspi.visualization.algotrithms.BubbleSort;
@@ -89,7 +89,7 @@ public class VisualizerFrame extends JFrame{
     private ISortAlgoritms algorithm;
     public static int time = 50;
     public static JList<String> lsCode;
-    private ElementBox[] elementBoxs;
+    private Element[] elementBoxs;
     private PointRun pointRun;
 
 	private boolean isIncrease = true ;

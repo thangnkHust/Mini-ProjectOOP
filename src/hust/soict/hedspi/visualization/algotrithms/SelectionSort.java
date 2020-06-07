@@ -7,13 +7,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import hust.soict.hedspi.visualization.VisualizerFrame;
-import hust.soict.hedspi.visualization.action.ElementBox;
+import hust.soict.hedspi.visualization.action.Element;
 import hust.soict.hedspi.visualization.action.PointRun;
 import hust.soict.hedspi.visualization.action.SortVisualizer;
 
 public class SelectionSort implements ISortAlgoritms{
-	private ElementBox[] elementBoxs;
+	private Element[] elementBoxs;
 	private PointRun pointRun;
+	
 	public void addCode(DefaultListModel<String> model) {
 		model.addElement("void SelectionSort(int a[],int n ) {");
 		model.addElement("     int pos,i,j;");
@@ -28,7 +29,7 @@ public class SelectionSort implements ISortAlgoritms{
 	}
 	
 	@Override
-	public void sortIncrease(JPanel pnImitiate, ElementBox[] elementBoxs, PointRun pointRun) {
+	public void sortIncrease(JPanel pnImitiate, Element[] elementBoxs, PointRun pointRun) {
 		// get value for attributed
 		this.elementBoxs = elementBoxs;
 		this.pointRun = pointRun;
@@ -56,13 +57,14 @@ public class SelectionSort implements ISortAlgoritms{
 				elementBoxs[min].setValue(elementBoxs[i].getValue());
 				elementBoxs[i].setValue(temp);
 				SortVisualizer.highLight(7);
+				// Animation when swap
 				Swap(elementBoxs[i].getLabel(), elementBoxs[min].getLabel());
 			}
 		}
 	}
 	
 	@Override
-	public void sortDecrease(JPanel pnImitiate, ElementBox[] elementBoxs, PointRun pointRun) {
+	public void sortDecrease(JPanel pnImitiate, Element[] elementBoxs, PointRun pointRun) {
 		// get value for attributed
 		this.elementBoxs = elementBoxs;
 		this.pointRun = pointRun;
