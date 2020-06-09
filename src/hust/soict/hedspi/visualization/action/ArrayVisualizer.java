@@ -37,7 +37,7 @@ public class ArrayVisualizer {
 		return elementBoxs;
 	}
 	
-	// Connstructor --> create array visualization
+	// Constructor --> create array visualization
 	public ArrayVisualizer(JPanel pnImitiate, JSpinner spNum, Element[] elementBoxs, PointRun pointRun) {
 		// Set pnImitiate of ArrayVisualizer
 		setPnImitiate(pnImitiate);

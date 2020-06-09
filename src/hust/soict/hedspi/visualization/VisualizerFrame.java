@@ -217,13 +217,11 @@ public class VisualizerFrame extends JFrame{
 				else {
 					btnStop.setText("PAUSE");
 					for(int i = 0; i <= SortVisualizer.curT; i++) {
-//						if(SortVisualizer.threads[i].isAlive()) {
-							try {
-								SortVisualizer.threads[i].resume();
-							} catch (Exception e2) {
-								e2.printStackTrace();
-							}
-//						}
+						try {
+							SortVisualizer.threads[i].resume();
+						} catch (Exception e2) {
+							e2.printStackTrace();
+						}
 					}
 				}
 			}
