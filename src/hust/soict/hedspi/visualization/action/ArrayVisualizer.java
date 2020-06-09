@@ -21,7 +21,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.NumberFormatter;
 
 public class ArrayVisualizer {
-	public int num;
+	private int num;
 	private JPanel pnImitiate;
 	private Element[] elementBoxs;
 	
