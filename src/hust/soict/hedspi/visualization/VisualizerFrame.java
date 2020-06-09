@@ -103,6 +103,7 @@ public class VisualizerFrame extends JFrame{
 					VisualizerFrame frame = new VisualizerFrame();
 					frame.setExtendedState(JFrame.MAXIMIZED_BOTH); //set JFrame full screen
 					frame.setVisible(true);
+					frame.setState(0);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -116,27 +117,27 @@ public class VisualizerFrame extends JFrame{
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		setTitle("Mô phỏng thuật toán");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1376, 742);
+		setBounds(47, 100, 1376, 742);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.menu);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		lbTitle = new JLabel("M\u00D4 PH\u1ECENG THU\u1EACT TO\u00C1N");
+		lbTitle = new JLabel("MÔ PHỎNG THUẬT TOÁN");
 		lbTitle.setBackground(SystemColor.menu);
-		lbTitle.setBounds(5, 5, 1286, 28);
+		lbTitle.setBounds(88, 20, 1286, 28);
 		lbTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lbTitle.setFont(new Font("Tahoma", Font.BOLD, 23));
 		contentPane.add(lbTitle);
 		
 		pnTool = new JPanel();
-		pnTool.setBounds(5, 415, 1350, 287);
+		pnTool.setBounds(47, 480, 1350, 287);
 		contentPane.add(pnTool);
 		
 		pnArray = new JPanel();
 		pnArray.setBackground(SystemColor.menu);
-		pnArray.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "D\u1EEF li\u1EC7u", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		pnArray.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Dữ liệu", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
 		pnCode = new JPanel();
 		pnCode.setBackground(SystemColor.menu);
@@ -144,11 +145,11 @@ public class VisualizerFrame extends JFrame{
 		
 		pnAlgorithm = new JPanel();
 		pnAlgorithm.setBackground(SystemColor.menu);
-		pnAlgorithm.setBorder(new TitledBorder(null, "L\u1EF1a ch\u1ECDn thu\u1EADt to\u00E1n", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		pnAlgorithm.setBorder(new TitledBorder(null, "Lựa chọn thuật toán", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		pnControl = new JPanel();
 		pnControl.setBackground(SystemColor.menu);
-		pnControl.setBorder(new TitledBorder(null, "\u0110i\u1EC1u khi\u1EC3n", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		pnControl.setBorder(new TitledBorder(null, "Điều khiển", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GroupLayout gl_pnTool = new GroupLayout(pnTool);
 		gl_pnTool.setHorizontalGroup(
 			gl_pnTool.createParallelGroup(Alignment.LEADING)
@@ -180,19 +181,20 @@ public class VisualizerFrame extends JFrame{
         slSpeed.setValue(5);
 		pnControl.add(slSpeed);
 		
-		rdIncrease = new JRadioButton("S\u1EAFp x\u1EBFp t\u0103ng d\u1EA7n");
+		rdIncrease = new JRadioButton("Sắp xếp tăng dần");
 		rdIncrease.setBounds(52, 42, 144, 23);
 		pnControl.add(rdIncrease);
 		
-		rdDecrease = new JRadioButton("S\u1EAFp x\u1EBFm gi\u1EA3m d\u1EA7n");
+		rdDecrease = new JRadioButton("Sắp xếp giảm dần");
 		rdDecrease.setBounds(52, 87, 160, 23);
 		pnControl.add(rdDecrease);
 		
-		btnSort = new JButton("S\u1EAFp x\u1EBFp");
+		btnSort = new JButton("SẮP XẾP");
 		btnSort.setBackground(SystemColor.activeCaption);
 		btnSort.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new SortVisualizer(pnImitiate, algorithm, elementBoxs, pointRun, isIncrease);
+				setState(3);
 			}
 		});
 		btnSort.setBounds(52, 140, 120, 25);
@@ -269,11 +271,11 @@ public class VisualizerFrame extends JFrame{
 		
 		pnCreateArray = new JPanel();
 		pnCreateArray.setBackground(SystemColor.menu);
-		pnCreateArray.setBorder(new TitledBorder(null, "Kh\u1EDFi t\u1EA1o m\u1EA3ng", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		pnCreateArray.setBorder(new TitledBorder(null, "Khởi tạo mảng", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		pnSetValueArray = new JPanel();
 		pnSetValueArray.setBackground(SystemColor.menu);
-		pnSetValueArray.setBorder(new TitledBorder(null, "T\u1EA1o d\u1EEF li\u1EC7u m\u1EA3ng", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		pnSetValueArray.setBorder(new TitledBorder(null, "Tạo dữ liệu mảng", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GroupLayout gl_pnArray = new GroupLayout(pnArray);
 		gl_pnArray.setHorizontalGroup(
 			gl_pnArray.createParallelGroup(Alignment.LEADING)
@@ -288,19 +290,21 @@ public class VisualizerFrame extends JFrame{
 					.addComponent(pnSetValueArray, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
 		);
 		
-		btnRandom = new JButton("Ng\u1EABu nhi\u00EAn");
+		btnRandom = new JButton("Ngẫu nhiên");
 		btnRandom.setBackground(SystemColor.activeCaption);
 		btnRandom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				arrayVisualizer.createRandom();
+				setState(2);
 			}
 		});
 		btnRandom.setBounds(15, 27, 120, 25);
 		
-		btnByHand = new JButton("B\u1EB1ng tay");
+		btnByHand = new JButton("Bằng tay");
 		btnByHand.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				arrayVisualizer.createHand();
+				setState(2);
 			}
 		});
 		btnByHand.setBackground(SystemColor.activeCaption);
@@ -309,7 +313,7 @@ public class VisualizerFrame extends JFrame{
 		pnSetValueArray.add(btnRandom);
 		pnSetValueArray.add(btnByHand);
 		
-		lbNum = new JLabel("S\u1ED1 ph\u1EA7n t\u1EED m\u1EA3ng\r\n:");
+		lbNum = new JLabel("Số phần tử mảng : ");
 		lbNum.setBounds(16, 27, 139, 20);
 		
 		SpinnerModel sm = new SpinnerNumberModel(2, 2, 15, 1);
@@ -318,7 +322,7 @@ public class VisualizerFrame extends JFrame{
 		JFormattedTextField txt = ((JSpinner.NumberEditor) spNum.getEditor()).getTextField();
 		((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
 		
-		btnCreateArray = new JButton("T\u1EA1o m\u1EA3ng");
+		btnCreateArray = new JButton("Tạo mảng");
 		btnCreateArray.setBackground(SystemColor.activeCaption);
 		btnCreateArray.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -326,24 +330,27 @@ public class VisualizerFrame extends JFrame{
 				arrayVisualizer = new ArrayVisualizer(pnImitiate, spNum, elementBoxs, pointRun);
 				// set elementBoxs --> use it when sorting, animation
 				elementBoxs = arrayVisualizer.getElementBoxs();
+				setState(1);
 			}
 		});
 		btnCreateArray.setBounds(160, 59, 120, 25);
 		
-		btnDeleteArray = new JButton("X\u00F3a m\u1EA3ng");
+		btnDeleteArray = new JButton("Xoá mảng");
 		btnDeleteArray.setBackground(SystemColor.activeCaption);
 		btnDeleteArray.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				arrayVisualizer.deleteArray();
+				setState(0);
 			}
 		});
 		btnDeleteArray.setBounds(160, 95, 120, 25);
 		
-		btnSetZero = new JButton("\u0110\u1EB7t v\u1EC1 0");
+		btnSetZero = new JButton("Đặt về 0");
 		btnSetZero.setBackground(SystemColor.activeCaption);
 		btnSetZero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				arrayVisualizer.setZero();
+				setState(1);
 			}
 		});
 		btnSetZero.setBounds(15, 95, 120, 25);
@@ -354,7 +361,7 @@ public class VisualizerFrame extends JFrame{
 		pnCreateArray.add(spNum);
 		pnCreateArray.add(btnDeleteArray);
 		
-		lbMaxNum = new JLabel("(T\u1ED1i \u0111a 15)");
+		lbMaxNum = new JLabel("(Tối đa 15)");
 		lbMaxNum.setHorizontalAlignment(SwingConstants.CENTER);
 		lbMaxNum.setBounds(10, 47, 109, 14);
 		pnCreateArray.add(lbMaxNum);
@@ -364,7 +371,7 @@ public class VisualizerFrame extends JFrame{
 		pnImitiate = new JPanel();
 		pnImitiate.setBackground(SystemColor.menu);
 		pnImitiate.setBorder(new TitledBorder(null, "Khung chạy mô phỏng", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		pnImitiate.setBounds(5, 44, 1355, 360);
+		pnImitiate.setBounds(47, 60, 1355, 410);
 		contentPane.add(pnImitiate);
 		pnImitiate.setLayout(null);
                 
@@ -511,6 +518,101 @@ public class VisualizerFrame extends JFrame{
 //		setState(0);
 	}
 	
+	public void setState(int state) {
+		switch (state) {
+		case 0: //first state, haven't created arrays.
+			btnCreateArray.setEnabled(true);
+			btnDeleteArray.setEnabled(false);
+			btnSetZero.setEnabled(false);
+
+			btnRandom.setEnabled(false);
+			btnByHand.setEnabled(false);
+
+			rdSelectionSort.setEnabled(false);
+			rdBubbleSort.setEnabled(false);
+			rdMergeSort.setEnabled(false);
+			rdBuketSort.setEnabled(false); 
+			
+			rdIncrease.setEnabled(false);
+			rdDecrease.setEnabled(false);
+			
+			btnSort.setEnabled(false);
+			btnStop.setEnabled(false);
+			break;
+		case 1: //created arrays, be waiting to set value arrays.
+			btnDeleteArray.setEnabled(true);
+			btnSetZero.setEnabled(true);
+			
+			btnRandom.setEnabled(true);
+			btnByHand.setEnabled(true);
+			
+			rdSelectionSort.setEnabled(true);
+			rdBubbleSort.setEnabled(true);
+			rdMergeSort.setEnabled(true);
+			rdBuketSort.setEnabled(true);
+			
+			rdIncrease.setEnabled(true);
+			rdDecrease.setEnabled(true);
+			break;
+		case 2: //be set values, ready to sort
+			btnDeleteArray.setEnabled(true);
+			btnSetZero.setEnabled(true);
+			btnRandom.setEnabled(true);
+			
+			rdSelectionSort.setEnabled(true);
+			rdBubbleSort.setEnabled(true);
+			rdMergeSort.setEnabled(true);
+			rdBuketSort.setEnabled(true);
+			
+			rdIncrease.setEnabled(true);
+			rdDecrease.setEnabled(true);
+			
+			btnSort.setEnabled(true);
+			btnStop.setEnabled(false);
+			break;
+		case 3: //sorting
+			btnCreateArray.setEnabled(true);
+			btnDeleteArray.setEnabled(true);
+			btnSetZero.setEnabled(false);
+			
+			btnRandom.setEnabled(false);
+			btnByHand.setEnabled(false);
+
+			
+			rdIncrease.setEnabled(false);
+			rdDecrease.setEnabled(false);
+			
+
+			rdSelectionSort.setEnabled(false);
+			rdBubbleSort.setEnabled(false);
+			rdMergeSort.setEnabled(false);
+			rdBuketSort.setEnabled(false);
+			
+			btnSort.setEnabled(false);
+			btnStop.setEnabled(true);
+			break;
+			
+		case 4: //sort done
+			btnCreateArray.setEnabled(true);
+			btnDeleteArray.setEnabled(true);
+			btnSetZero.setEnabled(true);
+			
+			btnRandom.setEnabled(true);
+			btnByHand.setEnabled(true);
+			
+			rdSelectionSort.setEnabled(true);
+			rdBubbleSort.setEnabled(true);
+			rdMergeSort.setEnabled(true);
+			rdBuketSort.setEnabled(true);
+			
+			rdIncrease.setEnabled(true);
+			rdDecrease.setEnabled(true);
+			
+			btnSort.setEnabled(true);
+			btnStop.setEnabled(true);
+			break;
+		}
+	}
 	
 
 }

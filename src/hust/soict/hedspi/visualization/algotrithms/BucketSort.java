@@ -128,7 +128,83 @@ public class BucketSort implements ISortAlgoritms{
 	
 	@Override
 	public void sortDecrease(JPanel pnImitiate, Element[] elementBoxs, PointRun pointRun) {
-		
+		setElementBoxs(elementBoxs);
+		setElementIndexs(elementIndexs);
+		setPnImitiate(pnImitiate);
+		setNum(elementBoxs.length);
+		setIndexs();
+        
+		// Storage value from outer class
+        SortVisualizer.curT ++;
+        Thread[] threads = SortVisualizer.threads;
+        int cur = SortVisualizer.curT;
+        
+        threads[cur] = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					if (cur != 0) {
+                        threads[cur - 1].join();
+                    }
+					// Set value of index
+					int temp = 0;
+					SortVisualizer.highLight(2);
+					for(int i = 0; i < num; i++) {
+						temp = (elementBoxs[i].getValue()*num)/101;
+						SortVisualizer.highLight(3);
+						elementIndexs[i].setValue(temp);
+						elementIndexs[i].getLabel().setText(temp + "");
+						Thread.sleep(VisualizerFrame.time*4);
+						SortVisualizer.highLight(4);
+					}
+					// Start sorting
+					int pos, i;
+			        int x;
+			        int y;
+					for (i = 1; i < num; i++) {
+			        	x = elementBoxs[i].getValue();
+			        	y = elementIndexs[i].getValue();
+			        	pos = i - 1;
+			        	while ((pos >= 0) && (elementIndexs[pos].getValue() < y)) {
+			        		elementBoxs[pos+1].setValue(elementBoxs[pos].getValue());
+			        		elementIndexs[pos+1].setValue(elementIndexs[pos].getValue());
+			        		if (pos > 0 && elementIndexs[pos-1].getValue() >= y) {
+			        			Move(elementBoxs[pos+1].getLabel(), elementBoxs[pos].getLabel(), 0, elementIndexs[pos+1].getLabel(), elementIndexs[pos].getLabel());
+			        		} else {
+			        			Move(elementBoxs[pos+1].getLabel(), elementBoxs[pos].getLabel(), pos, elementIndexs[pos+1].getLabel(), elementIndexs[pos].getLabel());
+			        		}	              
+			        		pos--;
+			        	}
+			        	elementBoxs[pos+1].setValue(x);
+			        	elementIndexs[pos+1].setValue(y);
+			        }
+					// Sorting on each block
+					SortVisualizer.highLight(5);
+					for (i = 1; i < num; i++) {
+			        	x = elementBoxs[i].getValue();
+			        	y = elementIndexs[i].getValue();
+			            pos = i - 1;
+			            while ((pos >= 0) && (elementBoxs[pos].getValue() < x)) {
+			                if (pos > 0 && elementBoxs[pos-1].getValue() >= x) {
+			                	SortVisualizer.highLight(6);
+			                    Move(elementBoxs[pos+1].getLabel(), elementBoxs[pos].getLabel(), 0, elementIndexs[pos+1].getLabel(), elementIndexs[pos].getLabel());
+			                } else {
+			                	SortVisualizer.highLight(6);
+			                    Move(elementBoxs[pos+1].getLabel(), elementBoxs[pos].getLabel(), pos, elementIndexs[pos+1].getLabel(), elementIndexs[pos].getLabel());
+			                }
+			                elementBoxs[pos+1].setValue(elementBoxs[pos].getValue());
+			                elementIndexs[pos+1].setValue(elementIndexs[pos].getValue());
+			                pos--;
+			            }
+			            elementBoxs[pos+1].setValue(x);
+			            elementIndexs[pos+1].setValue(y);
+			        }
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+        threads[cur].start();	
 	}
 	
 	public void Move(JLabel lb1, JLabel lb2, int pos, JLabel lbIndex1, JLabel lbIndex2) {
