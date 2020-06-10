@@ -141,7 +141,7 @@ public class VisualizerFrame extends JFrame{
 		
 		pnCode = new JPanel();
 		pnCode.setBackground(SystemColor.menu);
-		pnCode.setBorder(new TitledBorder(null, "Code C/C++", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		pnCode.setBorder(new TitledBorder(null,"Pseudo Code", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		pnAlgorithm = new JPanel();
 		pnAlgorithm.setBackground(SystemColor.menu);
@@ -521,6 +521,7 @@ public class VisualizerFrame extends JFrame{
 	public void setState(int state) {
 		switch (state) {
 		case 0: //first state, haven't created arrays.
+			btnStop.setText("PAUSE");
 			btnCreateArray.setEnabled(true);
 			btnDeleteArray.setEnabled(false);
 			btnSetZero.setEnabled(false);
@@ -540,6 +541,7 @@ public class VisualizerFrame extends JFrame{
 			btnStop.setEnabled(false);
 			break;
 		case 1: //created arrays, be waiting to set value arrays.
+			btnStop.setText("PAUSE");
 			btnDeleteArray.setEnabled(true);
 			btnSetZero.setEnabled(true);
 			
