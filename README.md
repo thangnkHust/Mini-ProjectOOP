@@ -32,9 +32,5 @@
 	* Class MergeSort: Phần sortDecrease
 	* Class BucketSort: Phần sortDecrease
 
-### Use-case diagram
-![use-case](https://bitbucket.org/thangnkHust/oolt.vn.20192.team7/src/master/design/UseCase%20Diagram.png)
-### Class diagram
-![class](https://bitbucket.org/thangnkHust/oolt.vn.20192.team7/src/master/design/Class%20Diagram%20ver3.0.png)
 ### Link video demo chạy chương trình
 [Visualizer Sorting Algorithms Application](https://youtu.be/EN90QOKtSZI)
