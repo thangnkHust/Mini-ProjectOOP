@@ -73,8 +73,8 @@ public class BucketSort implements ISortAlgoritms{
 						SortVisualizer.highLight(3);
 						elementIndexs[i].setValue(temp);
 						elementIndexs[i].getLabel().setText(temp + "");
-						Thread.sleep(VisualizerFrame.time*4);
 						SortVisualizer.highLight(4);
+						Thread.sleep(VisualizerFrame.time*4);
 					}
 					// Start sorting
 					int pos, i;
