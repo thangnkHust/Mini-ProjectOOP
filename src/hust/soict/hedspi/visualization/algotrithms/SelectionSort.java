@@ -61,6 +61,7 @@ public class SelectionSort implements ISortAlgoritms{
 				Swap(elementBoxs[i].getLabel(), elementBoxs[min].getLabel());
 			}
 		}
+		SortVisualizer.waitEnd();
 	}
 	
 	@Override
@@ -95,6 +96,7 @@ public class SelectionSort implements ISortAlgoritms{
 				Swap(elementBoxs[i].getLabel(), elementBoxs[min].getLabel());
 			}
 		}
+		SortVisualizer.waitEnd();
 	}
 	
 	public void Swap(JLabel lb1, JLabel lb2) {

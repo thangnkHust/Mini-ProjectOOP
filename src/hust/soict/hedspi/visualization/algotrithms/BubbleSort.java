@@ -46,6 +46,7 @@ public class BubbleSort implements ISortAlgoritms{
 				}
 			}
 		}
+		SortVisualizer.waitEnd();
 	}
 	
 	@Override
@@ -70,7 +71,8 @@ public class BubbleSort implements ISortAlgoritms{
 					Swap(elementBoxs[j-1].getLabel(), elementBoxs[j].getLabel());
 				}
 			}
-		}		
+		}
+		SortVisualizer.waitEnd();
 	}
 	
 	public void Swap(JLabel lb1, JLabel lb2) {

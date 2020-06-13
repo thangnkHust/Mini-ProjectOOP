@@ -118,6 +118,7 @@ public class BucketSort implements ISortAlgoritms{
 			            elementBoxs[pos+1].setValue(x);
 			            elementIndexs[pos+1].setValue(y);
 			        }
+					SortVisualizer.waitEnd();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -199,6 +200,7 @@ public class BucketSort implements ISortAlgoritms{
 			            elementBoxs[pos+1].setValue(x);
 			            elementIndexs[pos+1].setValue(y);
 			        }
+					SortVisualizer.waitEnd();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

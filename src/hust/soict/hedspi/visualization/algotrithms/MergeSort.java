@@ -67,6 +67,7 @@ public class MergeSort implements ISortAlgoritms{
 		this.elementBoxs = elementBoxs;
 		this.pointRun = pointRun;
 		MergeSortIncrease();
+		SortVisualizer.waitEnd();
 	}
 	
 	
@@ -158,6 +159,7 @@ public class MergeSort implements ISortAlgoritms{
 		this.elementBoxs = elementBoxs;
 		this.pointRun = pointRun;
 		MergeSortDecrease();
+		SortVisualizer.waitEnd();
 	}
 	
 	public void MergeSortDecrease() {

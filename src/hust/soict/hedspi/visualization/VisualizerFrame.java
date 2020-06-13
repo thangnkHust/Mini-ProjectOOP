@@ -86,6 +86,7 @@ public class VisualizerFrame extends JFrame{
     private ChangeListener eSpeed;
     
     private ArrayVisualizer arrayVisualizer;
+    private SortVisualizer sortVisualizer;
     private ISortAlgoritms algorithm;
     public static int time = 50;
     public static JList<String> lsCode;
@@ -193,7 +194,7 @@ public class VisualizerFrame extends JFrame{
 		btnSort.setBackground(SystemColor.activeCaption);
 		btnSort.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new SortVisualizer(pnImitiate, algorithm, elementBoxs, pointRun, isIncrease);
+				sortVisualizer = new SortVisualizer(pnImitiate, algorithm, elementBoxs, pointRun, isIncrease);
 				setState(3);
 			}
 		});
