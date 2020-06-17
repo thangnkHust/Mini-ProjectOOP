@@ -574,7 +574,7 @@ public class VisualizerFrame extends JFrame{
 			btnStop.setEnabled(false);
 			break;
 		case 3: //sorting
-			btnCreateArray.setEnabled(true);
+			btnCreateArray.setEnabled(false);
 			btnDeleteArray.setEnabled(true);
 			btnSetZero.setEnabled(false);
 			

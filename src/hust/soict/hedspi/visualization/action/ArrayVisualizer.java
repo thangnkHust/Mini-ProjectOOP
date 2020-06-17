@@ -66,7 +66,6 @@ public class ArrayVisualizer {
 		pnImitiate.setVisible(true);
 		pnImitiate.validate();
 		pnImitiate.repaint();
-//		setState(1);
 	}
 	
 	public void deleteArray() {
@@ -74,18 +73,19 @@ public class ArrayVisualizer {
 		pnImitiate.removeAll();
 		// Interrupt all threads
 		for (int i = 0; i < SortVisualizer.curT; i++) {
-			try {
+			if(SortVisualizer.threads[i].isAlive()) {
+				try {
 					SortVisualizer.threads[i].interrupt();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
+				} 
+				catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		SortVisualizer.curT = -1;
 
 		pnImitiate.revalidate();
 		pnImitiate.repaint();
-//		setState(0);
 	}
 	
 	public void createRandom() {
@@ -98,7 +98,6 @@ public class ArrayVisualizer {
 		pnImitiate.setVisible(true);
 		pnImitiate.validate();
 		pnImitiate.repaint();
-//		setState(2);
 	}
 
 	public void setZero() {
@@ -108,16 +107,17 @@ public class ArrayVisualizer {
 		}
 		
 		for (int i = 0; i < SortVisualizer.curT; i++) {
-			try {
+			if(SortVisualizer.threads[i].isAlive()) {
+				try {
 					SortVisualizer.threads[i].interrupt();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
+				} 
+				catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		this.pnImitiate.revalidate();
 		this.pnImitiate.repaint();
-//		setState(1);
 	}
 	
 	public void createHand() {
@@ -127,7 +127,7 @@ public class ArrayVisualizer {
 		JLabel[] lbArrays = new JLabel[num];
 		
 		JFrame arrayInput = new JFrame();
-		arrayInput.setTitle("Nh\u1EADp d\u1EEF li\u1EC7u m\u1EA3ng");
+		arrayInput.setTitle("Nhập dữ liệu mảng");
 		arrayInput.setBounds(100, 100, 504, 312);
 		JPanel contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.menu);

@@ -187,10 +187,10 @@ public class MergeSort implements ISortAlgoritms{
         int[] R = new int[n2];
         int i, j, k;
         
-        SortVisualizer.highLight(16);
+//        SortVisualizer.highLight(16);
         for (i = 0; i < n1; i ++)
             L[i] = elementBoxs[left + i].getValue();
-        SortVisualizer.highLight(18);
+//        SortVisualizer.highLight(18);
         for (j = 0; j < n2; j ++)
             R[j] = elementBoxs[mid + 1 + j].getValue();
         setlbPoint(pointRun.getLbPoint1(), left, "i = ");
@@ -199,42 +199,42 @@ public class MergeSort implements ISortAlgoritms{
         i = 0; j = 0;
         k = left;
 		while (i < n1 && j < n2) {
-			SortVisualizer.highLight(22);
+//			SortVisualizer.highLight(22);
             setlbPoint(pointRun.getLbPointM(), k, "k = ");
-            SortVisualizer.highLight(23);
+//            SortVisualizer.highLight(23);
             if (L[i] >= R[j]) {
                 setlbPoint(pointRun.getLbPoint1(), left + i, "i = ");
                 SortVisualizer.highLight(24);
                 elementBoxs[k].setValue(L[i]);
                 PutDown(elementBoxs[left + i].getLabel(), oriLocat[k], 150);
-                SortVisualizer.highLight(25);
+//                SortVisualizer.highLight(25);
                 i ++;
             } else {
             	 setlbPoint(pointRun.getLbPoint2(), mid + 1 + j, "j = ");
             	 SortVisualizer.highLight(27);
             	  elementBoxs[k].setValue(R[j]);
                   PutDown(elementBoxs[mid + 1 + j].getLabel(), oriLocat[k], 150);
-                  SortVisualizer.highLight(28);
+//                  SortVisualizer.highLight(28);
                   j ++;
             }
-            SortVisualizer.highLight(30);
+//            SortVisualizer.highLight(30);
             k ++;
 		}
 		while (i < n1) {
-			SortVisualizer.highLight(32);
+//			SortVisualizer.highLight(32);
             setlbPoint(pointRun.getLbPointM(), k, "k = ");
             setlbPoint(pointRun.getLbPoint1(), left + i, "i = ");
-            SortVisualizer.highLight(33);
+//            SortVisualizer.highLight(33);
             elementBoxs[k].setValue(L[i]);
             PutDown(elementBoxs[left + i].getLabel(), oriLocat[k], 150);
             i ++;
             k ++;
 		}
 		while (j < n2) {
-			SortVisualizer.highLight(37);
+//			SortVisualizer.highLight(37);
             setlbPoint(pointRun.getLbPointM(), k, "k = ");
             setlbPoint(pointRun.getLbPoint2(), mid + 1 + j, "j = ");
-            SortVisualizer.highLight(38);
+//            SortVisualizer.highLight(38);
             elementBoxs[k].setValue(R[j]);
             PutDown(elementBoxs[mid + 1 + j].getLabel(), oriLocat[k], 150);
             j ++;

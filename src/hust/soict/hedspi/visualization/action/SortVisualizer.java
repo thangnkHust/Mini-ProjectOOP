@@ -18,10 +18,8 @@ public class SortVisualizer{
 	public SortVisualizer(JPanel pnImitiate, ISortAlgoritms algoritm, Element[] elementBoxs, PointRun pointRun, boolean isIncrease) {
 		if(isIncrease == true) {
 			algoritm.sortIncrease(pnImitiate, elementBoxs, pointRun);
-//			waitEnd();
 		}else {
 			algoritm.sortDecrease(pnImitiate, elementBoxs, pointRun);
-//			waitEnd();
 		}
 	}
 
